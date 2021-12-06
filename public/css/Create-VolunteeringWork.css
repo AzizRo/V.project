@@ -1,0 +1,83 @@
+@media only screen
+  and (min-device-width : 1024px)
+  and (max-device-width : 1366px)
+  and (orientation:portrait)
+{
+    .iPad-Pro{
+        margin-top: 10rem!important;
+
+    }
+    .iPadPro-custem{
+        margin-top: 15rem!important;
+        font-size: large;
+
+    }
+    .control-label{
+        padding-bottom: 2px;
+    }
+    .container-body-iPad-Pro{
+        padding-top: 51px;
+    }
+}
+
+
+.form .with_placeholder {
+    font-size: 20px;
+    padding: 14px 22px !important;
+}
+.form .update_input {
+    width: 100%;
+    height: 48px;
+    border-radius: 24px;
+    border: solid 1px #d5d5d5;
+    margin-bottom: 17px;
+    padding-top: 21px;
+    padding-right: 23px;
+}
+.form .with_select {
+    font-size: 20px;
+    padding: 9px 22px !important;
+    text-align: left;
+    margin-top: 0;
+}
+.form .update_input {
+    width: 100%;
+    height: 48px;
+    border-radius: 24px;
+    border: solid 1px #d5d5d5;
+    margin-bottom: 17px;
+    padding-top: 21px;
+    padding-right: 23px;
+}
+.save_btn, .transparent_btn {
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 31px;
+    color: #fff;
+    background-color: #39c095;
+    border-radius: 24px;
+    border: none;
+    width: 100%;
+    height: 48px;
+    margin-bottom: 20px;
+}
+.Validation_message{
+    padding-left: 15px;
+    padding-bottom: 15px;
+}
+
+.Validation_message_first {
+
+    padding-left: 29px;
+    padding-bottom: 15px;
+}
+.Validation_message_second {
+
+    padding-left: 126px;
+    padding-bottom: 15px;
+}
+.Validation_message_third {
+
+    padding-left: 80px;
+    padding-bottom: 15px;
+}
