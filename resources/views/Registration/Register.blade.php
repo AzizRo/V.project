@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- bootstrap link  -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
     <title>Sign-up</title>
     <link rel="stylesheet" href="css/sign-up.css">
@@ -43,8 +44,8 @@
                             <div class="control-group">
                                 <label class="control-label"  for="first_name">الاسم </label>
                                 <div class="controls ">
-                                    <input type="text" id="first_name" name="first_name"  class="input-xlarge @error('first_name') border-danger @endif" value="{{old('first_name')}}">
-                                    @error('first_name')
+                                    <input type="text" id="first_name" name="first_name"  class="input-xlarge @error('الاسم_الاول') border-danger @endif" value="{{old('first_name')}}">
+                                    @error('الاسم_الاول')
                                     <div class="text-danger  text-sm">
                                         {{ $message }}
                                     </div>
@@ -57,8 +58,8 @@
                             <div class="control-group">
                                 <label class="control-label"  for="middle_name">Middle Name</label>
                                 <div class="controls small-screen">
-                                    <input type="text" id="middle_name" name="middle_name"  class="input-xlarge @error('middle_name') border-danger @endif" value="{{old('middle_name')}}">
-                                    @error('middle_name')
+                                    <input type="text" id="middle_name" name="middle_name"  class="input-xlarge @error('اسم_الاب') border-danger @endif" value="{{old('middle_name')}}">
+                                    @error('اسم_الاب')
                                     <div class="text-danger  text-sm">
                                         {{ $message }}
                                     </div>
@@ -71,8 +72,8 @@
                             <div class="control-group">
                                 <label class="control-label"  for="family_name">اسم العائلة</label>
                                 <div class="controls small-screen">
-                                    <input type="text" id="family_name" name="family_name"  class="input-xlarge @error('family_name') border-danger @endif" value="{{old('family_name')}}">
-                                    @error('family_name')
+                                    <input type="text" id="family_name" name="family_name"  class="input-xlarge @error('اسم_العائلة') border-danger @endif" value="{{old('family_name')}}">
+                                    @error('اسم_العائلة')
                                     <div class="text-danger  text-sm">
                                         {{ $message }}
                                     </div>
@@ -85,8 +86,8 @@
                             <div class="control-group">
                                 <label class="control-label"  for="username">اسم المستخدم</label>
                                 <div class="controls small-screen">
-                                    <input type="text" id="username" name="username"  class="input-xlarge @error('username') border-danger @endif" value="{{old('username')}}">
-                                    @error('username')
+                                    <input type="text" id="username" name="username"  class="input-xlarge @error('اسم_المستخدم') border-danger @endif" value="{{old('username')}}">
+                                    @error('اسم_المستخدم')
                                     <div class="text-danger  text-sm">
                                         {{ $message }}
                                     </div>
@@ -102,8 +103,8 @@
                             <div class="control-group" >
                                 <label class="control-label" for="email">الايميل الجامعي</label>
                                 <div class="controls small-screen">
-                                    <input type="email" dir="ltr" id="email" name="email"  class="input-xlarge @error('email') border-danger @endif" value="{{old('email')}}">
-                                    @error('email')
+                                    <input type="email" dir="ltr" id="email" name="email"  class="input-xlarge @error('الايميل') border-danger @endif" value="{{old('email')}}">
+                                    @error('الايميل')
                                     <div class="text-danger  text-sm">
                                         {{ $message }}
                                     </div>
@@ -117,8 +118,8 @@
                             <div class="control-group">
                                 <label class="control-label" for="password">كلمة المرور</label>
                                 <div class="controls small-screen">
-                                    <input type="password" id="password" name="password" class="input-xlarge @error('password') border-danger @endif">
-                                    @error('password')
+                                    <input type="password" id="password" name="password" class="input-xlarge @error('كلمة_المرور') border-danger @endif">
+                                    @error('كلمة_المرور')
                                     <div class="text-danger  text-sm">
                                         {{ $message }}
                                     </div>
@@ -131,22 +132,22 @@
                             <div class="control-group">
                                 <label class="control-label"  for="password_confirmation">كلمة المرور (تأكيد)</label>
                                 <div class="controls small-screen">
-                                    <input type="password" id="password_confirmation" name="password_confirmation"  class="input-xlarge @error('password') border-danger @endif">
+                                    <input type="password" id="password_confirmation" name="password_confirmation"  class="input-xlarge @error('كلمة_المرور') border-danger @endif">
 
                                     <p class="help-block">الرجاء تأكيد كلمة المرور</p>
                                 </div>
                             </div>
 
-                            <!-- Select -->
+                            <!-- Select major-->
                             <div>
                                 <label class="control-label"  for="Major">التخصص</label>
-                                <select class="form-select small-screen @error('Select') border-danger @endif" aria-label="Default select example" id="Major" name="Select" value="0" {{(old('Select') == '0') ? 'checked' : ''}}>
+                                <select class="form-select small-screen @error('التخصص') border-danger @endif" aria-label="Default select example" id="Major" name="Select" value="0" {{(old('Select') == '0') ? 'checked' : ''}}>
                                     <option value="">الرجاء تحديد تخصصك</option>
                                     <option value="Computer Sceience" @if (old('Select') == "Computer Sceience") {{ 'selected' }} @endif >علوم الحاسب</option>
                                     <option value="Information System" @if (old('Select') == "Information System") {{ 'selected' }} @endif>نظم المعلومات</option>
                                     <option value="Software Engneering" @if (old('Select') == "Software Engneering") {{ 'selected' }} @endif>هندسة البرمجيات</option>
                                 </select>
-                                @error('Select')
+                                @error('التخصص')
                                 <div class="text-danger  text-sm">
                                     {{ $message }}
                                 </div>
@@ -157,59 +158,59 @@
                     </div>
 
                     <div class="row">
-                        <!-- Radio -->
+                        <!-- Radio button about gender -->
                         <div class="col-md-6">
                             <label class="control-label"  for="Gender" >الجنس</label>
                             <div class="form-check small-screen">
-                                <input class="form-check-input @error('gender') border-danger @endif" type="radio" name="gender" id="Male"  value="male" {{(old('gender') == 'male') ? 'checked' : ''}}>
+                                <input class="form-check-input @error('الجنس') border-danger @endif" type="radio" name="gender" id="Male"  value="male" {{(old('gender') == 'male') ? 'checked' : ''}}>
                                 <label class="form-check-label" for="Male">
                                     ذكر
                                 </label>
                             </div>
                             <div class="form-check small-screen">
-                                <input class="form-check-input small-screen @error('gender') border-danger @endif" type="radio" name="gender" id="Female"  value="female" {{(old('gender') == 'female') ? 'checked' : ''}}>
+                                <input class="form-check-input small-screen @error('الجنس') border-danger @endif" type="radio" name="gender" id="Female"  value="female" {{(old('gender') == 'female') ? 'checked' : ''}}>
                                 <label class="form-check-label" for="Female">
                                     انثى
                                 </label>
 
                             </div>
-                            @error('gender')
+                            @error('الجنس')
                             <div class="text-danger  text-sm">
                                 {{ $message }}
                             </div>
                             @enderror
                         </div>
 
-                        <!-- Radio -->
+                        <!-- Radio button about work -->
                         <div class="col-md-6">
                             <label class="control-label"  for="Work" >العمل</label>
                             <div class="form-check">
-                                <input class="form-check-input @error('work') border-danger @endif" type="radio" name="work" id="Student" value="student" {{(old('work') == 'student') ? 'checked' : ''}}>
+                                <input class="form-check-input @error('العمل') border-danger @endif" type="radio" name="work" id="Student" value="student" {{(old('work') == 'student') ? 'checked' : ''}}>
 
                                 <label class="form-check-label" for="Student">
                                     طالب
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input @error('work') border-danger @endif" type="radio" name="work" id="Faculty member" value="faculty member" {{(old('work') == 'faculty member') ? 'checked' : ''}}>
+                                <input class="form-check-input @error('العمل') border-danger @endif" type="radio" name="work" id="Faculty member" value="faculty member" {{(old('work') == 'faculty member') ? 'checked' : ''}}>
                                 <label class="form-check-label" for="Faculty member">
                                     عضو هيئة تدريس
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input @error('work') border-danger @endif" type="radio" name="work" id="Administrative" value="administrative" {{(old('work') == 'administrative') ? 'checked' : ''}}>
+                                <input class="form-check-input @error('العمل') border-danger @endif" type="radio" name="work" id="Administrative" value="administrative" {{(old('work') == 'administrative') ? 'checked' : ''}}>
                                 <label class="form-check-label" for="Administrative">
                                     اداري
                                 </label>
 
                             </div>
-                            @error('work')
+                            @error('العمل')
                             <div class="text-danger  text-sm">
                                 {{ $message }}
                             </div>
                             @enderror
                         </div>
-                        <!-- Button -->
+                        <!-- Text and button submit-->
                         <div class="control-group pt-4 pt-md-0 ">
                             <div class="controls">
                                 <button type="submit"  class="btn btn-success" style="background-color: #39c095;">تسجيل</button>

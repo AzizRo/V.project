@@ -10,20 +10,16 @@ use Illuminate\Support\Facades\DB;
 
 class WelcomeController extends Controller
 {
+    // this function will return Registration.Welcome view
     public function index()
     {
-
-        //$volunteers= DB::table("user_volunteerworks")->count();
-
         return view('Registration.Welcome' );
 
     }
-
-
-
-
-    public function logout(Request $request) {
+    // this function will let the user logout
+    public function logout(Request $request)
+    {
         Auth::logout();
-        return redirect("/");
+        return redirect("welcome");
     }
 }

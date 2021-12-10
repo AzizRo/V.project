@@ -108,40 +108,7 @@
 
 
 <footer>
-    <hr>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-4 col-md-12 col-sm-12">
-                <ul>
-                    <li>
-                        <a class="copy_right" href="/About/Faq">Common Questions</a>
-                    </li>
-                    <li>
-                        <a class="copy_right" href="/About/TutorialGuides">Help</a>
-                    </li>
-                    <li>
-                        <a class="copy_right" href="/About/Agreement">The Ethical Charter For Volunteering</a>
-                    </li>
-                    <li>
-                        <a class="copy_right" target="_blank" href="/files/VolunteerUserManual.pdf">User Guide</a>
-                    </li>
-                    <li>
-                        <a class="copy_right" href="/AbpLocalization/ChangeCulture?cultureName=ar-SA&amp;returnUrl=Home">Arabic</a>
-                    </li>
-                    <li>
-                        <a class="copy_right" href="/AbpLocalization/ChangeCulture?cultureName=en-US&amp;returnUrl=Home">English</a>
-                    </li>
 
-                </ul>
-            </div>
-
-            <div class="col-lg-4 col-md-12 col-sm-12 text-center">
-                <p class="copy_right">All rights reserved. Volunteer work platform  2021  <br> Powered by Tamkeen Technologies</p>
-            </div>
-            <div class="col-lg-4 col-md-12 col-sm-12 text-center">
-            </div>
-        </div>
-    </div>
 </footer>
 
 <!-- success message if he signed in the opportunity -->
@@ -164,25 +131,21 @@
     <div class="col-lg-12 col-md-6 col-sm-12 d-flex align-items-center">
         <table class="align-items-center">
             <tr>
-                <th>id</th>
                 <th>اسم المتطوع</th>
-                <th>VolunteerId</th>
-                <th>WorkId</th>
                 <th>اسم الفرصة التطوعية</th>
                 <th>بداية تاريخ الفرصة</th>
                 <th>نهاية تاريخ الفرصة</th>
                 <th>عدد الساعات االتطوعية</th>
                 <th>اسم صاحب الفرصة</th>
                 <th>حالة الشهادة</th>
+
                 <th>اصدار الشهادة</th>
 
             </tr>
             @foreach ($Certificates as $Certificate)
                 <tr>
-                    <td>{{$Certificate->id}}</td>
+
                     <td>{{$Certificate->VolunteerName}}</td>
-                    <td>{{$Certificate->VolunteerId}}</td>
-                    <td>{{$Certificate->WorkId}}</td>
                     <td>{{$Certificate->WorkName}}</td>
                     <td>{{$Certificate->StartDate}}</td>
                     <td>{{$Certificate->EndDate}}</td>
@@ -190,14 +153,20 @@
                     <td>{{$Certificate->ProviderName}}</td>
                     <td>{{$Certificate->Status}}</td>
 
+                            <input type="hidden" name="businessID" value="$Certificate->VolunteerId"/>
+
+
+                            <input type="hidden" name="businessID" value="$Certificate->WorkID"/>
+
+                             <input type="hidden" name="businessID" value="$Certificate->id"/>
+
                     <td>
-                        <input type="hidden" name="businessID" value="$Certificate->id"/>
-                        <a  onclick="return confirm('Are you sure?')" href="/GiveCertificates/{{$Certificate->id}}/{{$Certificate->VolunteerName}}/{{$Certificate->VolunteerId}}/{{$Certificate->WorkId}}/{{$Certificate->WorkName}}/{{$Certificate->StartDate}}/{{$Certificate->EndDate}}/{{$Certificate->VolunteeringHours}}/{{$Certificate->ProviderName}}">
-                            Give Certificate to Volunteer
+                        <a  onclick="return confirm('هل انت متأكد?')" href="/GiveCertificates/{{$Certificate->id}}/{{$Certificate->VolunteerName}}/{{$Certificate->VolunteerId}}/{{$Certificate->WorkId}}/{{$Certificate->WorkName}}/{{$Certificate->StartDate}}/{{$Certificate->EndDate}}/{{$Certificate->VolunteeringHours}}/{{$Certificate->ProviderName}}">
+                            اصدار الشهادة
                         </a>
                     </td>
 
-                </tr>
+                             </tr>
             @endforeach
         </table>
     </div>

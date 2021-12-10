@@ -23,8 +23,9 @@
 
 
 
-
+    <!-- Navbar -->
     <nav class="navbar navbar-expand-lg  navbar-light py-3 f">
+        <!-- Image -->
         <div class="container">
             <a href="{{route('home')}}" class=" d-none d-sm-block
                 ">
@@ -55,8 +56,6 @@
 
                     <!-- Nav-item2 -->
 
-
-                    <!-- Nav-item3 -->
                     <li class="nav-item dropdown">
                         @auth()
                             <a href="opportunies" class="nav-link px-3 dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" >{{ Auth::user()->username }}</a>
@@ -93,52 +92,67 @@
 
 
 
-
-
-
 <footer>
 </footer>
+<!--  Error message if he signed in the same opportunity-->
+@if (session('error'))
+    <div class="container ">
+        <div class="row container justify-content-center">
+            <div class="col-lg-4 col-md-4 col-sm-4">
+                <div class="alert alert-danger  text-center">
+                    {{ session('error') }}
+                </div>
+            </div>
+        </div>
+    </div>
+@endif
 
 
 
-
-
-
-<!-- cards start -->
+<!-- opportunity cards start -->
 
 <div class="cards container" style="margin-bottom: 50px;">
 
     <div class="row justify-content-center">
         @foreach ($works as $work)
-            <div class="col-lg-8 col-md-1 col-sm-10">
+            <div class="col-lg-4 col-md-6 col-sm-12">
 
                 <div  id="60d65e86-8e5a-46d0-1bc1-08d998986fd4" style="cursor: pointer;" class="card" data-step="2" data-intro="If you would like a specific opportunity, you can view its details here">
+
+                    <!--Card Image -->
 
                     <div  class="card_image" > <img src="/img/NajranLogoBig6.jpeg" style="border-radius: 10px;"></div>
 
                     <div class="complete" style="background-color:transparent !important;">
                         <p class="completed_text"></p>
-                    </div>         <span class="text_on_image" style="color: #ffffff">{{ $work->Name }} </span>
+                    </div>
+                    <!--Opportunity Name -->
+                    <span class="text_on_image" style="color: #ffffff">{{ $work->Name }} </span>
+                    <!--Opportunity Location -->
                     <p class="card_location">
-                        {{ $work->Location }}                    </p>
-                    <p data-toggle="tooltip" data-placement="top" title="" class="card_title" data-original-title="توزيع سلال غذائية">{{ $work->Description }}</p>
+                        {{ $work->Location }}
+                    </p>
+                    <!--Opportunity Gender required -->
+                    <p data-toggle="tooltip" data-placement="top" title="" style="padding-bottom: 14px" class="card_title" data-original-title="توزيع سلال غذائية">{{ $work->Description }}</p>
                     <p class="card_text">{{ $work->Gender }}</p>
 
 
                     <hr>
                     <div class="row">
                         <div class="col-4">
+                            <!--Opportunity StartDate - EndDate -->
                             <p class="days_number" data-date="5">تاريخ التسجيل</p>
                             <p class="dates">{{ $work->StartDate }} - <br>{{ $work->EndDate }}</p> <!-- End date - Start date -->
                         </div>
                         <div class="col-4">
+                            <!--Opportunity Volunteer.num required-->
                             <p class="seats_number">{{$work->Volunteernum }} المقاعد</p>
                             <p class="statuse">باقي من الوقت</p>
                         </div>
-                        <div class="col-4">
+                        <div class="col-4 mb-4">
                             <div data-step="3" data-intro="What are you waiting for! Click here to register for the opportunity">
-
-                                <a class="join_btn btn_to_a"  href="home/show/{{{$work->WorkID}}}">عرض الفرصة</a>
+                                <!--Show Opportunity button -->
+                                <a class="join_btn btn_to_a "  href="home/show/{{{$work->WorkID}}}">عرض الفرصة</a>
 
                             </div>
                         </div>
@@ -173,8 +187,9 @@
 
 
 
-
+<!--Script -->
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
 
-</body></html>
+   </body>
+</html>

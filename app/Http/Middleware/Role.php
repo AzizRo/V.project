@@ -20,8 +20,8 @@ class Role
         if (\Auth::Volnteer()->can($role . '-access')) {
             return $next($request);
         }
-        return redirect("Login");
+       // return redirect("Login");
 
-       // return response('blank', 404);
+        //return response('blank', 404);
     }
 }

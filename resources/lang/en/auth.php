@@ -15,6 +15,6 @@ return [
 
     'failed' => 'These credentials do not match our records.',
     'password' => 'The provided password is incorrect.',
-    'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
+    'throttle' => 'لقد أدخلت محاولات تسجيل دخول كثيرة. يرجى المحاولة مرة أخرى خلال 5 دقائق.',
 
 ];

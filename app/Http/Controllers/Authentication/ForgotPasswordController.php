@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Authentication;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -49,7 +50,7 @@ class ForgotPasswordController extends Controller
 
 
         return back()
-            ->with('info', 'We have emailed your password reset link');
+            ->with('info', 'لقد أرسلنا عبر بريدك الإلكتروني رابط إعادة تعيين كلمة المرور الخاصة بك');
     }
 
     /**
@@ -76,7 +77,7 @@ class ForgotPasswordController extends Controller
         // check & validate input forms
         $request->validate([
             'email' => ['required','email','exists:users','regex:/(.*)@nu.edu.sa/',],
-            'password'=>['required','confirmed','regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-.]).{12,}$/'],
+            'password'=>['required','confirmed','regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-.]).{8,}$/'],
             'password_confirmation' => 'required'
         ]);
 
@@ -92,7 +93,7 @@ class ForgotPasswordController extends Controller
         {
             return back()
                 ->withInput()
-                ->with('error', 'Invalid token!');
+                ->with('error', 'كلمة المرور غير صالحة!');
         }
 
         // Update User Model
@@ -106,7 +107,7 @@ class ForgotPasswordController extends Controller
             'email' => $request->email
         ])->delete();
 
-        return redirect(route('Login'))->with('success', 'Your Password has been changed');
+        return redirect(route('Login'))->with('success', 'تم تغيير كلمة المرور الخاصة بك بنجاح');
 
     }
 }

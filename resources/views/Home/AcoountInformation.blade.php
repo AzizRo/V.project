@@ -1,12 +1,4 @@
 <html lang="ar"  dir="rtl"><head>
-    <!-- Google Tag Manager -->
-
-    <!-- End Google Tag Manager -->
-    <style>
-    </style>
-
-
-
 
     <meta charset="utf-8">
     <title>Volunteer Work Gate</title>
@@ -20,10 +12,6 @@
     <link rel="stylesheet" href="css/kendo/kendo.rtl.min.css">
     <link rel="stylesheet" href="css/Profile.css">
 
-    <style>
-
-
-    </style>
     <link href="https://fonts.googleapis.com/css?family=Tajawal:300,400&amp;display=swap" rel="stylesheet">
 
     <link href="/css/ltr.css" rel="stylesheet">
@@ -42,9 +30,7 @@
 <div id="full_loader_overlay" style="display: none;">
 
     <div>
-        <span id="wisdom">  Volunteering in the service of our country ... giving and building to our society </span>
-        <span id="author" class="loading__author"> Volunteer Work Gate </span>
-        <br>
+
         <span class="loading__anim"></span>
     </div>
 
@@ -62,9 +48,10 @@
 
 
 
-
+        <!-- Navbar -->
         <nav class="navbar navbar-expand-lg  navbar-light py-3 f">
             <div class="container">
+                <!-- Image -->
                 <a href="{{route('home')}}" class=" d-none d-sm-block
                 ">
                     <img height="100" src="/img/logoAr.png">
@@ -94,8 +81,6 @@
 
                         <!-- Nav-item2 -->
 
-
-                        <!-- Nav-item3 -->
                         <li class="nav-item dropdown">
                             @auth()
                                 <a href="opportunies" class="nav-link px-3 dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" >{{ Auth::user()->username }}</a>
@@ -126,36 +111,28 @@
                 </div>
          </nav>
     </div>
+    <!--This message appear when a user update his account  -->
+    @if (session('success') )
+        <div class="container ">
+            <div class="row container justify-content-center">
+                <div class="col-lg-4 col-md-4 col-sm-4">
+                    <div class="alert alert-success  text-center">
+                        {{ session('success') }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
     <div class="">
         <div id="apprun-app">
-
-
-<style>
-
-</style>
-
 
 
 <div class="container margin_top_small">
     <div class="text-center">
 
     </div>
-    @if (session('message'))
-        <div class="alert alert-danger">
-            {{ session('message') }}
-        </div>
-    @endif
-    @if (session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
-    @if (session('error'))
-        <div class="alert alert-danger">
-            {{ session('error') }}
-        </div>
-    @endif
 
+    <!-- update account form -->
     <form method= "POST" action ="{{route("Account/update")}}">
         @csrf
         <input type="hidden" name="cid" value="{{ Auth::user()->id }}">
@@ -169,6 +146,10 @@
                     <a href="{{url("MyVolunteerWorks")}}"><button id="healthBtn" type="button" onclick="showOption(this.id)" class="option_text">الفرص المنشئة الخاصة بي</button></a>
                     @endrole
                     <hr>
+                    @role('certificate')
+                    <a href="{{url("ApproveMyOpportunity")}}"><button id="healthBtn" type="button" onclick="showOption(this.id)" class="option_text">الموافقة على الفرص المنشئة الخاصة بي </button></a>
+                    @endrole
+                    <hr>
                     @role('volunteer')
                     <a href="{{url("MyVolunteerOpportunities")}}"><button id="healthBtn" type="button" onclick="showOption(this.id)" class="option_text">فرص التطوع الخاصة بي</button></a>
                     @endrole
@@ -176,6 +157,7 @@
                     <a href="{{url("certificate")}}"><button id="educationBtn" type="button" onclick="window.location.href='/Account/AdvancedProfile'" class="option_text">الشهادات التطوعية</button></a>
                 </div>
             </div>
+            <!-- account information -->
 
             <div id="account" class="col-lg-6 col-md-12 col-sm-12">
                 <button class="collapse_small_btn" type="button" data-toggle="collapse" data-target="#collapseAccount" aria-expanded="false" aria-controls="collapseExample">
@@ -192,13 +174,14 @@
                         </div>
 
                     </div>
-
+                    <!-- email -->
                     <div class="row">
                         <div class="col-lg-5 col-md-12 col-sm-12">
                             <p class="help-block">الايميل الجامعي</p>
                             <input type="email" id="email" name="email"  class="update_input with_placeholder"  value="{{ Auth::user()->email }}" disabled>
 
                         </div>
+                        <!-- Major -->
                         <div class="col-lg-5 col-md-12 col-sm-12" >
 
                             <label class="control-label"  for="Major">التخصص</label>
@@ -217,6 +200,7 @@
                         </div>
 
                     </div>
+                    <!-- phone number -->
 
                     <div class = "row">
                         <div class="col-lg-5 col-md-12 col-sm-12">
@@ -230,20 +214,23 @@
                         </div>
                     </div>
                     @endauth
+
+                <!-- reset_password -->
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12">
                             <hr>
                         </div>
                         <div class="col-lg-12 col-md-12 col-sm-12">
-                            <a href="/Account/ResetPassword" class="reset_password btn_to_a">تحديت كلمة المرور</a>
+                            <a href="{{route('forget.password.get')}}" class="reset_password btn_to_a">تحديت كلمة المرور</a>
                         </div>
                         <div class="col-lg-12 col-md-12 col-sm-12">
                             <hr>
                         </div>
                     </div>
+                    <!-- save_btn -->
                     <div class="row">
                         <div class="col-lg-4 col-md-12 col-sm-12">
-                            <button type="submit"  class="save_btn">Save</button>
+                            <button type="submit"  class="save_btn">تحديث</button>
                         </div>
                     </div>
                 </div>
@@ -251,106 +238,6 @@
         </div>
     </form>
 
-
-    <div id="personal" class="col-lg-8 col-md-12 col-sm-12" style="display: none">
-                <button class="collapse_small_btn" type="button" data-toggle="collapse" data-target="#collapsePersonal" aria-expanded="false" aria-controls="collapseExample">
-                    Personal Information
-                </button>
-                <div class="form toBeCollapse" id="collapsePersonal">
-                    <div class="row">
-                        <div class="col-lg-5 col-md-12 col-sm-12">
-                            <input class="update_input" name="Volunteer.MaritalStatus" readonly="" value="أعزب" type="text">
-                        </div>
-                        <div class="col-lg-5 col-md-12 col-sm-12">
-                            <input class="update_input" name="Volunteer.Gender" readonly="" value="ذكر" type="text">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6 col-md-12 col-sm-12">
-                            <select id="citySelect" name="Volunteer.CityId" class="form-control update_input" required="">
-                                <option value="" selected="" disabled=""> You must choose a city</option>
-                        <option value="1">مظيلف</option>
-                        <option value="2">المذنب</option>
-                        <option value="3">أملج</option>
-                        <option value="4">بلجرشي</option>
-                            </select>
-                            <span class="arrow_icon"><i class="fas fa-angle-down"></i></span>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6 col-md-12 col-sm-12">
-                            <input class="update_input" name="Volunteer.Nationality" readonly="" value="سعودي" type="text">
-                        </div>
-                    </div>
-
-
-                    <div class="row">
-                        <div class="col-lg-4 col-md-12 col-sm-12">
-                            <button type="button" onclick="submitForm()" class="save_btn">Save</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-            <!-- TODO: Add  style="display: none" in below div -->
-            <div id="health" class="col-lg-6 col-md-12 col-sm-12" style="display: none">
-                <button class="collapse_small_btn" type="button" data-toggle="collapse" data-target="#collapseHealth" aria-expanded="false" aria-controls="collapseExample">
-                    MyVolunteerWork
-                </button>
-                <div class="form toBeCollapse" id="collapseHealth">
-                    <div class="row">
-                        <div class="col-lg-6 col-md-12 col-sm-12">
-                            <div class="form-group m-form__group">
-                                <select class="form-control update_input" name="Volunteer.BloodGroupType" id="BloodGroupType" required="" data-val="true" data-val-required="The BloodGroupType field is required."><option value="1">+A</option>
-<option value="2">-A</option>
-<option value="3">+B</option>
-<option value="4">-B</option>
-<option selected="selected" value="5">+O</option>
-<option value="6">-O</option>
-<option value="7">+AB</option>
-<option value="8">-AB</option>
-</select>
-                            </div>
-                            <span class="arrow_icon"><i class="fas fa-angle-down"></i></span>
-                        </div>
-
-                    </div>
-
-
-                </div>
-            </div>
-
-            <!-- TODO: Add  style="display: none" in below div -->
-            <div id="teams" class="col-lg-8 col-md-12 col-sm-12" style="display: none">
-                <button class="collapse_small_btn" type="button" data-toggle="collapse" data-target="#collapseTeams" aria-expanded="false" aria-controls="collapseExample">
-                    Statistics
-                </button>
-                <div class="form toBeCollapse" id="collapseTeams">
-                    <div class="row">
-
-
-
-                    </div>
-                </div>
-            </div>
-
-            <!-- TODO: Add  style="display: none" in below div -->
-            <div id="teams" class="col-lg-8 col-md-12 col-sm-12" style="display: none">
-                <button class="collapse_small_btn" type="button" data-toggle="collapse" data-target="#collapseTeams" aria-expanded="false" aria-controls="collapseExample">
-                    Certifcates
-                </button>
-                <div class="form toBeCollapse" id="collapseTeams">
-                    <div class="row">
-
-
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    <input name="__RequestVerificationToken" type="hidden" value="CfDJ8ICO8GpWJxxDrG0exzfUJEibwXQO2yQB9QnoOgP3B8UtEnMnzhL9cEvXWjBcqRuemxgJvguld9csQNbJk28iMhNG5wc3lgl2o9fmPZvwof9oon4kWFnmUcxXL0oRavQXISW9OqGSplt_6dsRp_omJguuESIpRQXU8SWaRAZB5cSXmOks9FqQ0k9uvOgKt8sjEw">
-</div>
 
 
 

@@ -12,7 +12,9 @@ use Illuminate\Database\Eloquent\Model;
 class volunteerwork extends Model
 {
     use HasApiTokens, HasFactory, Notifiable;
+    // the name of the table in the database
     protected $table = "volunteerworks";
+    // the name of the primary key in the table
     protected $primaryKey = 'WorkID';
 
     /**
@@ -20,6 +22,7 @@ class volunteerwork extends Model
      *
      * @var string[]
      */
+    //We must define fillable properties
     protected $fillable = [
         'Name',
         'Description',
@@ -36,11 +39,8 @@ class volunteerwork extends Model
         'Major',
         'Location',
         'Field',
-
         'user_id'
     ];
-
-
 
 
 
@@ -54,13 +54,6 @@ class volunteerwork extends Model
     }
 
 
-
-    /* public function volunteer()
-
-     {
-         return $this->hasMany('App\Models\volunteer',"volunteer_id" );
-
-     }*/
 
     /**
      * The attributes that should be hidden for serialization.

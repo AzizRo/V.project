@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class volunteerwork_user extends Model
 {
     use HasFactory;
+    //We must define fillable properties
     protected $fillable = [
 
 

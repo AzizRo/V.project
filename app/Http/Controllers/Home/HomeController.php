@@ -21,8 +21,7 @@ use Intervention\Image\Facades\Image;
 
 
 use File;
-use Spatie\Permission\Models\Role;
-use Spatie\Permission\Models\Permission;
+
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\MyFirstNotification;
 
@@ -31,17 +30,21 @@ class HomeController extends Controller
     public function index()
     {
 
+        // this function will return the available Volunteer Work to the Volunteer
 
         if (Auth::check())
         {
 
-           if (Auth::user()->work == "faculty member"){
+           if (Auth::user()->work == "faculty member")
+           {
                 Auth::user()->assignRole(["volunteer provider" , "volunteer"]);
             }
-            elseif (Auth::user()->work == "administrative"){
+            elseif (Auth::user()->work == "administrative")
+            {
                 Auth::user()->assignRole(["volunteer provider" , "volunteer"]);
             }
-            elseif (Auth::user()->work == "student"){
+            elseif (Auth::user()->work == "student")
+            {
                 Auth::user()->assignRole("volunteer");
             }
 
@@ -72,16 +75,11 @@ class HomeController extends Controller
             ]);
 
 
-
-
-
-
-
-
             }
-            else{
+            else
+            {
 
-                return redirect('/');
+                return redirect('welcome');
             }
 
 
@@ -89,53 +87,12 @@ class HomeController extends Controller
 
 
 
+    //this function will show the details of the volunteer work
 
-
-
-
-    //Role::create(['name' => 'admin']);
-        //Permission::create(['name' => 'Create']);
-        //$role = Role::findById(1);
-        //$permission = Permission::findById(5);
-        //$role->givePermissionTo($permission);
-       // $permission->removeRole($role);
-
-   // $role = Role::findById(1);
-
-       // $permission1 = Permission::findById(1);
-       // $permission2 = Permission::findById(2);
-       // $permission3 = Permission::findById(3);
-       // $permission4 = Permission::findById(4);
-       // $permission5 = Permission::findById(5);
-
-
-       // $role->givePermissionTo([$permission1, $permission2 ,$permission3,$permission4 , $permission5 ]);
-        //$user = User::create(['username' => 'admin']);
-        //auth()->user()->givePermissionTo("admin");
-
-
-        // $user->givePermissionTo('show');
-        //return $user->hasPermissionTo('show');
-
-        // dd(auth()->user());
-
-
-       // $user = Auth::user();
-        //$work = Auth::user();
-
-
-    //$role = Role::findById(1);
-    // $permission1 = Permission::findById(1);
-    //$permission2 = Permission::findById(2);
-    //$permission3 = Permission::findById(3);
-    //$permission4 = Permission::findById(4);
-    //$permission5 = Permission::findById(5);
-//$role->givePermissionTo([$permission1, $permission2 ,$permission3,$permission4 , $permission5 ]);
-//auth()->user()->givePermissionTo("admin");
     public function show($WorkID)
     {
-        // give this to abdulaziz because you forget the information about the person who created the work
-        if (Auth::check()) {
+        if (Auth::check())
+        {
             return view('Home.ShowWork', [
                 'work' => DB::table("volunteerworks AS t1")
                     ->select('t1.WorkID', 't1.Name', 't1.Description',
@@ -151,15 +108,19 @@ class HomeController extends Controller
             ]);
 
 
-        } else {
-            return redirect('/');
+        }
+        else
+        {
+            return redirect('welcome');
         }
     }
+    // this function will let the user register in the Volunteer Work
 
     public function register(Request $request)
     {
 
-        if (Auth::check()) {
+        if (Auth::check())
+        {
             // Check if the person exist in the database
             //if exist  $record= true
             //if does not exist  $record= false
@@ -168,10 +129,13 @@ class HomeController extends Controller
 
             $Volunteernum = volunteerwork::find(request('WorkID'))->Volunteernum;
             // dd($Volunteernum);
-            if ($Volunteernum == 0 || $record == true) {
+            if ($Volunteernum == 0 || $record == true)
+            {
                 // if record exits it means he already signed in the opportunity
-                return redirect(route('home'));
-            } else {
+                return redirect(route('home'))->with('error', 'لقد سجلت في هذه الفرصة مسبقا');
+            }
+            else
+            {
                 // if record  does not exits it means he is not signed in the opportunity and he can sign in
                 volunteerwork_user::create([
                     'volunteer_id' => auth()->id(),
@@ -181,40 +145,20 @@ class HomeController extends Controller
                 //Vounteernum -1 than update the record
                 $NewNum = volunteerwork::find(request('WorkID'))->Volunteernum - 1;
                 volunteerwork::where('WorkID', request('WorkID'))->update(array('Volunteernum' => $NewNum));
-                return redirect(route('MyVolunteerOpportunities'))->with('success', 'Registered Successfully');
+                return redirect(route('MyVolunteerOpportunities'))->with('success', 'لقد سجلت في الفرصة بنجاح');
 
             }
 
 
         }
 
-        else{
-            return redirect('/');
+        else
+        {
+            return redirect('welcome');
         }
     }
 
-    public function sendNotification()
-    {
-        $user = User::first();
-
-        $details = [
-            'greeting' => 'Hi',
-            'body' => 'This is my first notification from ItSolutionStuff.com',
-            'thanks' => 'Thank you for using ItSolutionStuff.com tuto!',
-            'actionText' => 'View My Site',
-            'actionURL' => url('/'),
-            'order_id' => 101
-        ];
-
-      //  Notification::send($user, new MyFirstNotification($details));
-        $user->notify(new MyFirstNotification($details));
-
-       // return ('Hi');
-
-
-        //dd('done');
-    }
-
+    // this function will log out  the user from current session
 
     public function logout(Request $request)
     {
@@ -224,7 +168,7 @@ class HomeController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect('welcome');
     }
 
 

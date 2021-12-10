@@ -136,13 +136,16 @@
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12">
                 <div style="background: linear-gradient(rgba(0,19,11,0.3), rgba(0,19,11,0.3)),url('/img/NajranLogoBig6.jpeg');" class="background_image text-center">
+                    <!--Image text -->
                     <p class="location">جامعة نجران</p>
+                    <!--Opportunity Name -->
                     <p class="volunteer_title" translate="no">{{ $work->Name }}</p>
                     <p class="details_title title_font">
+                        <!--Form for volunteer who wants register in opportunity  -->
                     <form method="POST" action="{{url('CreateWork/show/{WorkID}')}}">
                         <input type="hidden" name="WorkID" value="{{ $work->WorkID }}">
                         @csrf
-                        <button  type="submit" href=CreateWork/show/{{{$work->WorkID}}}"  style="    background-color: transparent;border-radius: 6px;color: white;border: none;">تسجيل في الفرصة</button>
+                        <button type="submit" href=CreateWork/show/{{{$work->WorkID}}}"  style="    background-color: transparent;border-radius: 6px;color: white;border: none;">تسجيل في الفرصة</button>
                     </form>
                     <div id="enrollments_created_div" class="text-center" style="display: none;">
                         <br>
@@ -164,30 +167,38 @@
                 <div class="white_background" data-step="" data-intro="معلومات الفرصة" data-position="">
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-sm-6">
+                            <!--Opportunity Description -->
                             <p class="details_title title_font" >تفاصيل الفرصة التطوعية</p>
                             <p class="details_gry_text">{{ $work->Description }}</p>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-sm-6">
+                            <!--Opportunity StartDate - EndDate -->
                             <p class="details_green_text"> بداية التسجيل  -  نهاية التسجيل</p>
                             <p class="details_gry_text">{{ $work->StartDate }} - {{ $work->EndDate}}</p>
+                            <!--Opportunity Duration -->
                             <p class="details_green_text">مدة التسجيل في الفرصة</p>
                             <p class="details_gry_text">{{ $work->Duration }} ايام</p>
+                            <!--Opportunity volunteer_hours -->
                             <p class="details_green_text"> عدد ساعات التطوع</p>
                             <p class="details_gry_text">{{ $work->volunteer_hours }} ساعات</p>
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6">
+                            <!--Opportunity Volunteer.num required-->
                             <p class="details_green_text">المقاعد</p>
                             <p class="details_gry_text">{{$work->Volunteernum }}</p>
+                            <!--Opportunity Field -->
                             <p class="details_green_text">نوع الفرصة</p>
                             <p class="details_gry_text" translate="no">{{ $work->Field }}</p>
+                            <!--Opportunity Major required -->
                             <p class="details_green_text">التخصص المطلوب</p>
                             <p class="details_gry_text">{{ $work->Major }}</p>
 
                         </div>
 
                         <div class="col-lg-6 col-md-6 col-sm-6">
+                            <!--Opportunity Gender required -->
                             <p class="details_green_text"  dir="ltr">الجنس المطلوب</p>
                             <p class="details_gry_text" translate="no">{{ $work->Gender }}</p>
 
@@ -195,12 +206,14 @@
                     </div>
                     <div class="row">
                         <div class="col-lg-6 col-md-12 col-sm-12">
+                            <!--Opportunity Benefits -->
                             <p class="details_green_text">الفوائد المكتسبة من الفرصة</p>
                             <p class="details_normal_text" translate="no">{{ $work->Benefits }}</p>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-6 col-md-12 col-sm-12">
+                            <!--Opportunity Skills required -->
                             <p class="details_green_text">المهارات المطلوبة</p>
                             <p class="details_normal_text" translate="no">{{ $work->Skills }}</p>
                         </div>
@@ -210,18 +223,21 @@
 
                     <div class="row">
                         <div class="col-lg-6 col-md-12 col-sm-12">
+                            <!--Opportunity Tasks -->
                             <p class="details_green_text">المهام</p>
                             <p class="details_normal_text pre-wrap" translate="no">{{ $work->Tasks }}</p>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-6 col-md-12 col-sm-12">
+                            <!--Opportunity Location -->
                             <p class="details_green_text">موقع الفرصة</p>
                             <p class="details_normal_text" translate="no">{{ $work->Location }}</p>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-sm-6">
+                            <!-- Communication between provider and volunteer -->
                             <p class="details_green_text">طريقة التواصل</p>
                             <p class="details_normal_text" translate="no">{{ $work->Communication }}</p>
                         </div>
@@ -230,13 +246,14 @@
             </div>
             <div class="col-lg-4 col-md-12 col-sm-12">
                 <div class="white_background text-center with_iframe" data-step="3" data-intro="معلومات المنظمة" data-position="top">
+                    <!--Provider first_name -middle_name -family_name -->
                     <p class="details_name">بيانات صاحب العمل</p>
                     <p class="initiatives_number" translate="no">{{$work->first_name}}   {{$work->middle_name}} {{$work->family_name}}</p>
                     <hr>
-                    <p class="details_information">{{$work->email}}</p>
-                    <hr>
+                    <!--Provider Major -->
                     <p class="details_information">{{$work->Select}}</p>
                     <hr>
+                    <!--Provider work -->
                     <p class="details_information">{{$work->work}}</p>
                     <hr>
 

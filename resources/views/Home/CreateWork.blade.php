@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -72,6 +71,7 @@
 
 
                 @guest()
+                <!-- Nav-item3 -->
                     <li class="nav-item ">
                         <a href="{{route('Register')}}" class="nav-link" role="button" aria-haspopup="true" aria-expanded="false" >تسجيل</a>
                     </li>

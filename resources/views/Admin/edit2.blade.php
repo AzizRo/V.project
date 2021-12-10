@@ -97,40 +97,7 @@
 
 
 <footer>
-    <hr>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-4 col-md-12 col-sm-12">
-                <ul>
-                    <li>
-                        <a class="copy_right" href="/About/Faq">Common Questions</a>
-                    </li>
-                    <li>
-                        <a class="copy_right" href="/About/TutorialGuides">Help</a>
-                    </li>
-                    <li>
-                        <a class="copy_right" href="/About/Agreement">The Ethical Charter For Volunteering</a>
-                    </li>
-                    <li>
-                        <a class="copy_right" target="_blank" href="/files/VolunteerUserManual.pdf">User Guide</a>
-                    </li>
-                    <li>
-                        <a class="copy_right" href="/AbpLocalization/ChangeCulture?cultureName=ar-SA&amp;returnUrl=Home">Arabic</a>
-                    </li>
-                    <li>
-                        <a class="copy_right" href="/AbpLocalization/ChangeCulture?cultureName=en-US&amp;returnUrl=Home">English</a>
-                    </li>
 
-                </ul>
-            </div>
-
-            <div class="col-lg-4 col-md-12 col-sm-12 text-center">
-                <p class="copy_right">All rights reserved. Volunteer work platform  2021  <br> Powered by Tamkeen Technologies</p>
-            </div>
-            <div class="col-lg-4 col-md-12 col-sm-12 text-center">
-            </div>
-        </div>
-    </div>
 </footer>
 
 
@@ -141,7 +108,7 @@
 <!-- cards start -->
 
 <div class="bg-light p-3 rounded" >
-    <h1>Update user</h1>
+    <h1>تحديث المستخدم</h1>
     <div class="lead">
 
     </div>
@@ -150,7 +117,7 @@
     <div class="container mt-4" >
 
             <div class="mb-3" >
-                <label  for="first_name" class="form-label">Name</label>
+                <label  for="first_name" class="form-label">اسم المستخدم</label>
                 <input value="{{ $user->first_name }}"
                        type="text"
                        class="form-control"
@@ -162,7 +129,7 @@
                 @endif
             </div>
             <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
+                <label for="email" class="form-label">ايميل المستخدم</label>
                 <input   value="{{ $user->email }}"
                        type="email"
                        class="form-control"
@@ -172,6 +139,10 @@
                     <span class="text-danger text-left">{{ $errors->first('email') }}</span>
                 @endif
             </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">دور المستخدم</label>
+
+
         @foreach($roles as $id => $role)
             <div class="form-check">
                 <input  class = "form-check-input" name="roles[]" type="checkbox" value="{{ $role->id }}"
@@ -183,12 +154,13 @@
             </div>
         @endforeach
 
-            </div>  <br><br>
+            </div>
+    </div><br><br>
     <div class="mb-3">
-        <button type="submit" class="btn btn-primary">Update user</button>
+        <button type="submit" class="btn btn-primary">تحديث المستخدم</button>
     </div>
     </form>
-        <a href="{{url("users")}}" class="btn btn-default">Cancel</a>
+        <a href="{{url("users")}}" class="btn btn-default">الغاء</a>
 
 </div>
 

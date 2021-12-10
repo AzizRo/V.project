@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="utf-8">
     <meta name="author" content="Kodinger">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Forgot password</title>
+    <title>هل نسيت كلمة المرور</title>
     <link rel="stylesheet" href="{{  asset('bootstrap/css/bootstrap.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/my-login.css') }}">
     <link rel="stylesheet" href="{{asset('css/Styling.css')}}">
@@ -16,9 +16,9 @@
         <div class="row justify-content-md-center align-items-center h-100">
             <div class="card-wrapper">
 
-                <div class="card fat">
+                <div class="card fat" >
                     <div class="card-body">
-                        <h4 class="card-title">Forgot Password</h4>
+                        <h4 class="card-title" >هل نسيت كلمة السر</h4>
                         <form method="POST" class="my-login-validation" novalidate="" action="">
                             @csrf
 
@@ -34,21 +34,21 @@
                             @endif
 
                             <div class="form-group">
-                                <label for="email">E-Mail Address</label>
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" placeholder="Enter your email">
+                                <label for="email">عنوان البريد الإلكتروني</label>
+                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" placeholder="أدخل عنوان بريدك الإلكتروني">
                                 <span class="text-danger">@error('email'){{ $message }} @enderror</span>
                             </div>
 
                             <div class="form-group m-0">
                                 <button type="submit" class="btn btn-primary btn-block">
-                                    Send Password Link
+                                    إرسال رابط كلمة المرور
                                 </button>
                             </div>
                         </form>
                     </div>
                 </div>
                 <div class="footer">
-                    Copyright &copy; 2021 &mdash; Najran University
+                    حقوق النشر والنسخ &copy; 2021 &mdash; جامعة نجران
                 </div>
             </div>
         </div>

@@ -1,11 +1,4 @@
 <html lang="ar" dir="rtl"><head>
-    <!-- Google Tag Manager -->
-
-    <!-- End Google Tag Manager -->
-
-
-
-
 
     <meta charset="utf-8">
     <title>Volunteer Work Gate</title>
@@ -55,9 +48,7 @@
 <div id="full_loader_overlay" style="display: none;">
 
     <div>
-        <span id="wisdom">  Volunteering in the service of our country ... giving and building to our society </span>
-        <span id="author" class="loading__author"> Volunteer Work Gate </span>
-        <br>
+
         <span class="loading__anim"></span>
     </div>
 
@@ -65,19 +56,14 @@
 </div>
 
 
-
-
-<style>
-
-
-</style>
 <div class="">
 
 
 
-
+    <!-- navbar -->
     <nav class="navbar navbar-expand-lg  navbar-light py-3 f">
         <div class="container">
+            <!-- Image -->
             <a href="{{route('home')}}" class=" d-none d-sm-block
                 ">
                 <img height="100" src="/img/logoAr.png">
@@ -107,8 +93,6 @@
 
                     <!-- Nav-item2 -->
 
-
-                    <!-- Nav-item3 -->
                     <li class="nav-item dropdown">
                         @auth()
                             <a href="opportunies" class="nav-link px-3 dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" >{{ Auth::user()->username }}</a>
@@ -142,13 +126,6 @@
 <div class="">
     <div id="apprun-app">
 
-
-        <style>
-
-        </style>
-
-
-
         <div class="container margin_top_small">
             <div class="text-center">
 
@@ -164,6 +141,10 @@
                         <a href="{{url("MyVolunteerWorks")}}"><button id="healthBtn" type="button" onclick="showOption(this.id)" class="option_text">الفرص المنشئة الخاصة بي</button></a>
                         @endrole
                         <hr>
+                        @role('certificate')
+                        <a href="{{url("ApproveMyOpportunity")}}"><button id="healthBtn" type="button" onclick="showOption(this.id)" class="option_text">الموافقة على الفرص المنشئة الخاصة بي </button></a>
+                        @endrole
+                        <hr>
                         @role('volunteer')
                         <a href="{{url("MyVolunteerOpportunities")}}"><button id="healthBtn" type="button" onclick="showOption(this.id)" class="option_text">فرص التطوع الخاصة بي</button></a>
                         @endrole
@@ -171,102 +152,32 @@
                         <a href="{{url("certificate")}}"><button id="educationBtn" type="button" onclick="window.location.href='/Account/AdvancedProfile'" class="option_text">الشهادات التطوعية</button></a>
                     </div>
                 </div>
+                <!-- Certificate table Starts -->
                 <div id="account" class="col-lg-12 col-md-12 col-sm-12">
                     <table>
                         <tr>
                             <th>اسم الفرصة التطوعية</th>
-                            <th>Description</th>
-                            <th>Skills</th>
-                            <th>Tasks</th>
-                            <th>Benefits</th>
-                            <th>Communication</th>
                             <th>تاربخ بداية الفرصة</th>
                             <th>تاريخ نهاية الفرصة</th>
-                            <th>Duration</th>
                             <th>ساعات التطوع</th>
-                            <th>Gender</th>
-                            <th>Major</th>
-                            <th>Location</th>
-                            <th>Field</th>
+                            <th>حالة الشهادة</th>
                             <th>الحصول على الشهادة التطوعية</th>
-
                         </tr>
                         @foreach ($MyWorks as $MyWork)
                             <tr>
                                 <input hidden="{{$MyWork->WorkID}}">
                                 <td>{{$MyWork->Name}}</td>
-                                <td>{{$MyWork->Description}}</td>
-                                <td>{{$MyWork->Skills}}</td>
-                                <td>{{$MyWork->Tasks}}</td>
-                                <td>{{$MyWork->Benefits}}</td>
-                                <td>{{$MyWork->Communication}}</td>
                                 <td>{{$MyWork->StartDate}}</td>
                                 <td>{{$MyWork->EndDate}}</td>
-                                <td>{{$MyWork->Duration}}</td>
                                 <td>{{$MyWork->volunteer_hours}}</td>
-                                <td>{{$MyWork->Gender}}</td>
-                                <td>{{$MyWork->Major}}</td>
-                                <td>{{$MyWork->Location}}</td>
-                                <td>{{$MyWork->Field}}</td>
-
-                                <td><a href="http://127.0.0.1:8000/storage/{{$MyWork->WorkID}}/cer{{Auth::user()->id}}.jpg">Get My Certificate</a></td>
+                                <td>{{$MyWork->Status}}</td>
+                                <td><a href="http://127.0.0.1:8000/storage/{{$MyWork->WorkID}}/cer{{Auth::user()->id}}.jpg">الحصول على الشهادة</a></td>
+                                @endforeach
                             </tr>
-                        @endforeach
 
                     </table>
-                    <div id="account" class="col-lg-6 col-md-12 col-sm-12">
-                        <button class="collapse_small_btn" type="button" data-toggle="collapse" data-target="#collapseAccount" aria-expanded="false" aria-controls="collapseExample">
-                            Account information
-                        </button>
-                        <div class="form toBeCollapse" id="collapseAccount">
-                            <div class="row">
-                                <div class="col-lg-5 col-md-12 col-sm-12" >
 
-
-
-
-                                </div>
-
-                            </div>
-                        </div>
-
-
-                        <!-- TODO: Add  style="display: none" in below div -->
-                        <div id="teams" class="col-lg-8 col-md-12 col-sm-12" style="display: none">
-                            <button class="collapse_small_btn" type="button" data-toggle="collapse" data-target="#collapseTeams" aria-expanded="false" aria-controls="collapseExample">
-                                Statistics
-                            </button>
-                            <div class="form toBeCollapse" id="collapseTeams">
-                                <div class="row">
-
-
-
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- TODO: Add  style="display: none" in below div -->
-                        <div id="teams" class="col-lg-8 col-md-12 col-sm-12" style="display: none">
-                            <button class="collapse_small_btn" type="button" data-toggle="collapse" data-target="#collapseTeams" aria-expanded="false" aria-controls="collapseExample">
-                                Certifcates
-                            </button>
-                            <div class="form toBeCollapse" id="collapseTeams">
-                                <div class="row">
-
-
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <input name="__RequestVerificationToken" type="hidden" value="CfDJ8ICO8GpWJxxDrG0exzfUJEibwXQO2yQB9QnoOgP3B8UtEnMnzhL9cEvXWjBcqRuemxgJvguld9csQNbJk28iMhNG5wc3lgl2o9fmPZvwof9oon4kWFnmUcxXL0oRavQXISW9OqGSplt_6dsRp_omJguuESIpRQXU8SWaRAZB5cSXmOks9FqQ0k9uvOgKt8sjEw">
-                </div>
-
-            </div>
-
-
-
-
+                    <!-- Certificate table ends -->
 
             <footer>
 
@@ -279,9 +190,14 @@
 
 
 
-
+                <!-- script -->
 
         <grammarly-desktop-integration data-grammarly-shadow-root="true"></grammarly-desktop-integration>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
 
-    </div></div></body></html>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

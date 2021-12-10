@@ -15,39 +15,101 @@ use File;
 
 class MyVolunteerWorksController extends Controller
 {
+    /* this function will return all Volunteer Works that the Volunteer Provider created
+    */
     public function index()
     {
-        /*$data=array(
-            "works" =>DB::table("volunteerworks")->where("user_id",auth()->id())->get());
-        return view('Home.MyVolunteerWorks' , $data);*/
+        if (Auth::check()) {
+            return view('Home.MyVolunteerWorks', [
+                'works' => DB::table('volunteerworks AS t1')
+                    ->select('t1.WorkID', 't1.Name', 't1.Description',
+                        't1.Skills', 't1.Tasks',
+                        't1.Benefits', 't1.Communication', 't1.Volunteernum',
+                        't1.StartDate', 't1.EndDate', 't1.Duration', 'volunteer_hours',
+                        't1.Gender', 't1.Major', 't1.status', 't1.Location', 't1.Field')
+                    ->join('users AS t2', 't2.id', '=', 't1.user_id')
+                    ->where("user_id", auth()->id())//->get()
 
-        return view('Home.MyVolunteerWorks', [
-            'works' => DB::table('volunteerworks AS t1')
-                ->select('t1.WorkID','t1.Name' , 't1.Description',
-                    't1.Skills', 't1.Tasks',
-                    't1.Benefits', 't1.Communication', 't1.Volunteernum',
-                    't1.StartDate', 't1.EndDate', 't1.Duration','volunteer_hours',
-                    't1.Gender', 't1.Major','t1.status', 't1.Location', 't1.Field')
-                ->join('users AS t2', 't2.id', '=', 't1.user_id')
-                ->where("user_id",auth()->id())//->get()
+                    ->paginate(6)
+            ]);
 
-                // ->whereIn('t1.Major', ['CS'])
-                //->where('t1.Gender' ,'=', 'Both')
-                // -> orWhere('t1.Gender', '=', 'Female')
-                ->paginate(6)
-
-
-        ]);
-
-
-        // return view('Home.MyVolunteerWorks');
+        } else
+        {
+            return redirect('welcome');
+        }
     }
 
+//Only providers who have approveOpportunity permission can see this page
+        public function approveOpportunity()
+        {
+            if (Auth::check())
+            {
+
+                return view('Home.ApproveMyWork', [
+                    'works' => DB::table('volunteerworks AS t1')
+                        ->select('t1.WorkID', 't1.Name', 't1.Description',
+                            't1.Skills', 't1.Tasks',
+                            't1.Benefits', 't1.Communication', 't1.Volunteernum',
+                            't1.StartDate', 't1.EndDate', 't1.Duration', 'volunteer_hours',
+                            't1.Gender', 't1.Major', 't1.status', 't1.Location', 't1.Field')
+                        ->join('users AS t2', 't2.id', '=', 't1.user_id')
+                        ->where("user_id", auth()->id())//->get()
+                        ->Where(['t1.status' => 'Waiting for approval'])
+                        ->paginate(6)
+                ]);
+
+            }
+            else
+            {
+                return redirect('welcome');
+            }
+
+        }
+
+    // This function  will change  the  Status of the work without the  admin clicking  approve button
+    public function approval($WorkID)
+    {
+        if (Auth::check())
+        {
+            $works = volunteerwork::where('WorkID', '=', ($WorkID))->first();
+            if ($works) {
+                $works->status = "Approved";
+                $works->save();
+                return redirect()->back()->with("approval.MyOp","تمت الموافقة على الفرصة التطوعية بنجاح");
+            }
+            else
+            {
+                return redirect('welcome');
+            }
+        }
+    }
+    // This function  will change  the  Status of the work without the  admin clicking  decline button
+    public function decline($WorkID)
+    {
+        if (Auth::check())
+        {
+            $works = volunteerwork::where('WorkID', '=', ($WorkID))->first();
+            if ($works) {
+                $works->status = "Declined";
+                $works->save();
+                return redirect()->back()->with("decline.MyOp","تم الغاء الفرصة التطوعية بنجاح ");
+            }
+            else
+            {
+                return redirect('welcome');
+            }
+
+        }
+    }
+
+    /* this function will return all Volunteer Works that the Volunteer Provider created with its details
+    */
     public function show($WorkID)
     {
 
 
-        if (Auth::check()) {
+        if (Auth::check())
+        {
             return view('Home.ShowMyWork', [
                 'work' => DB::table("volunteerworks AS t1")
                     ->select('t1.WorkID', 't1.Name', 't1.Description',
@@ -57,22 +119,19 @@ class MyVolunteerWorksController extends Controller
                         't1.Gender', 't1.Major', 't1.Location', 't1.Field',
                         't2.first_name', 't2.middle_name', 't2.family_name', 't2.email', 't2.Select', 't2.work')
                     ->join('users AS t2', 't2.id', '=', 't1.user_id')
-                    ->join('volunteerwork_users AS t3', 't3.V_WorkID', '=', 't1.WorkID')
                     ->where("WorkID", $WorkID)
                     ->orWhere(['t2.id' => 't1.user_id'])
-                    ->orWhere(['t2.id' => 't3.volunteer_id'])
-                    ->whereRaw('t3.V_WorkID = t1.WorkID')
                     ->first()
             ]);
 
-
-        } else {
-            return redirect('/');
+        }
+        else
+        {
+            return redirect('welcome');
         }
 
     }
-
-
+    //this function will show the volunteers that registered in the opportunity
     public function showVolunteers($WorkID,$Name,$StartDate,$EndDate,$volunteer_hours,$first_name,$middle_name,$family_name)
     {
         if (Auth::check())
@@ -89,160 +148,142 @@ class MyVolunteerWorksController extends Controller
         }
         else
         {
-            return redirect(route('Welcome'));
+            return redirect("welcome");
         }
     }
 
+    /* this function will create a Certifcate request from the Volunteer provider to the admin */
     public function GiveCertificate($VolunteerName,$VolunteerId,$WorkId,$WorkName,$StartDate,$EndDate,$VolunteeringHours,$ProviderName)
     {
+        if (Auth::check())
+        {
+            $record = DB::table("certificates")->where('VolunteerId', '=', $VolunteerId)
+                ->where('WorkId', '=', $WorkId)->exists();
+            if ($record==false){
+                Certificate::create([
+                    'VolunteerName' => $VolunteerName,
+                    'VolunteerId' => $VolunteerId,
+                    'WorkId' => $WorkId,
+                    'WorkName' => $WorkName,
+                    'StartDate' => $StartDate,
+                    'EndDate' => $EndDate,
+                    'VolunteeringHours' => $VolunteeringHours,
+                    'ProviderName' => $ProviderName,
+                ]);
+            }
+            else
+            {
+                return redirect()->back()->with('error','لقد طلبت الشهادة لهذا المتطوع مسبقا');
+            }
 
-        Certificate::create([
-            'VolunteerName' => $VolunteerName,
-            'VolunteerId' => $VolunteerId,
-            'WorkId' => $WorkId,
-            'WorkName' => $WorkName,
-            'StartDate' => $StartDate,
-            'EndDate' => $EndDate,
-            'VolunteeringHours' => $VolunteeringHours,
-            'ProviderName' => $ProviderName,
 
-        ]);
+            return redirect()->back()->with("giveAdmin","تم اصدار الشهادة بنجاح");
 
-        return redirect()->back();
+        }
+        else
+        {
+            return redirect('welcome');
+        }
 
     }
 
-      public function showcertificate()
+    /* this function will show the Certifcate to the volunteer or volunteer provider */
+    public function showcertificate()
       {
-          $Test= "تمت الموافقة";
-          $Test2= "طلب شهادة من صاحب العمل ";
 
-          return view('Home.certificate',[
-
-              // whereRaw checks if the two columns values match and return them
-              'MyWorks'=>DB::table("volunteerworks AS t1")
-                  ->select( 't1.WorkID','t1.Name', 't1.Description',
-                      't1.Skills', 't1.Tasks',
-                      't1.Benefits', 't1.Communication',
-                      't1.StartDate', 't1.EndDate', 't1.Duration','t1.volunteer_hours',
-                      't1.Gender', 't1.Major', 't1.Location', 't1.Field')
-                  ->join('volunteerwork_users AS t2', 't2.V_WorkID', '=', 't1.WorkID')
-                  ->where('volunteer_id','=',auth()->user()->id)
-                  ->whereRaw('t2.V_WorkID = t1.WorkID')
-                  ->get()
-
-
-          ]);
-
-
+          if (Auth::check())
+          {
+              return view('Home.certificate',[
+                  'MyWorks'=>DB::table("volunteerworks AS t1")
+                      ->select( 't1.WorkID','t1.Name', 't1.Description',
+                          't1.Skills', 't1.Tasks',
+                          't1.Benefits', 't1.Communication',
+                          't1.StartDate', 't1.EndDate', 't1.Duration',
+                          't1.Gender',  't1.volunteer_hours', 't1.Major', 't1.Location', 't1.Field','t3.Status')
+                      ->join('certificates AS t3', 't3.WorkID','=','t1.WorkID')
+                      ->where('t3.VolunteerId','=',auth()->user()->id)
+                      ->whereColumn('t3.WorkID', 't1.WorkID')
+                      ->where('t3.Status','=','تمت الموافقة على الشهادة')
+                      ->get()
+              ]);
+          }
+          else
+          {
+              return redirect('welcome');
+          }
     }
-
-
-
-
-
-
+    /* this function will return Home.editshow that  Provider can  update his opportunity
+        */
     public function editshow($WorkID)
     {
-
-
-        return view('Home.editshow',[
-            'work' => DB::table('volunteerworks AS t1')
-                ->select('t1.WorkID', 't1.Name', 't1.Description',
-                    't1.Name', 't1.Skills', 't1.Tasks',
-                    't1.Benefits', 't1.Communication', 't1.Volunteernum',
-                    't1.StartDate', 't1.EndDate', 't1.Duration','volunteer_hours',
-                    't1.Gender', 't1.Major', 't1.status', 't1.Location', 't1.Field')
-                ->join('users AS t2', 't2.id', '=', 't1.user_id')
-                ->where("t1.WorkID", $WorkID) ->first()
-
-        ]);
-
-
+        if (Auth::check())
+        {
+            return view('Home.editshow',[
+                'work' => DB::table('volunteerworks AS t1')
+                    ->select('t1.WorkID', 't1.Name', 't1.Description',
+                        't1.Name', 't1.Skills', 't1.Tasks',
+                        't1.Benefits', 't1.Communication', 't1.Volunteernum',
+                        't1.StartDate', 't1.EndDate', 't1.Duration','volunteer_hours',
+                        't1.Gender', 't1.Major', 't1.status', 't1.Location', 't1.Field')
+                    ->join('users AS t2', 't2.id', '=', 't1.user_id')
+                    ->where("t1.WorkID", $WorkID) ->first()
+            ]);
+        }
+        else
+        {
+            return redirect('welcome');
+        }
     }
+    /* this function will delete the  Volunteer Work from the Volunteer provider  */
     public function Delete($WorkID)
     {
-
-    $delete= volunteerwork::find($WorkID);
+        if (Auth::check())
+        {
+            $delete= volunteerwork::find($WorkID);
             $delete->delete();
-         return redirect()->back();
+            return redirect()->back();
 
+        }
+        else
+        {
+            return redirect('welcome');
+        }
     }
-
+    /* this function will update the  Volunteer Work from the Volunteer provider  */
     public function update(Request $request)
     {
-        /*$validation= $request->validate([
-            'Name' => 'required',//['required', 'regex:/^([a-zA-Z]+)(\s[a-zA-Z]+)*$/']
-            'Description' => 'required',
-            'Skills' => 'required',
-            'Tasks' => 'required',
-            'Benefits' => 'required',
-            'Communication' => 'required',
-            'Volunteernum' => 'required',
-            'StartDate' => 'required',
-            'EndDate' => 'required',
-            'Gender' => 'required',
-            'Major' => 'required',
-            'Location' => 'required',
-            'Field' => 'required',
-        ]);*/
+        if (Auth::check())
+        {
+            $StartDate=strtotime($request->StartDate);
+            $EndDate=strtotime($request->EndDate);
+            $Diffrence=(($EndDate-$StartDate)/86400)+1;
 
-        $StartDate=strtotime($request->StartDate);
-        $EndDate=strtotime($request->EndDate);
-        $Diffrence=(($EndDate-$StartDate)/86400)+1;
+            $updating = DB::table("volunteerworks")->where("WorkID",$request->input("WorkID"))
+                ->update([
+                    'Name'=>$request->Name,
+                    'Description'=>$request->Description,
+                    'Skills'=>$request->Skills,
+                    'Tasks'=>$request->Tasks,
+                    'Benefits'=>$request->Benefits,
+                    'Communication'=>$request->Communication,
+                    'Volunteernum'=>$request->Volunteernum,
+                    'StartDate'=>$request->StartDate,
+                    'EndDate'=>$request->EndDate,
+                    'Duration'=>$Diffrence,
+                    'volunteer_hours'=>$request->volunteer_hours,
+                    'Gender'=>$request->Gender,
+                    'Major'=>json_encode($request->Major),
+                    'Location'=>$request->Location,
+                    'Field'=>$request->Field
 
-        $updating = DB::table("volunteerworks")->where("WorkID",$request->input("WorkID"))
-            ->update([
-                'Name'=>$request->Name,
-                'Description'=>$request->Description,
-                'Skills'=>$request->Skills,
-                'Tasks'=>$request->Tasks,
-                'Benefits'=>$request->Benefits,
-                'Communication'=>$request->Communication,
-                'Volunteernum'=>$request->Volunteernum,
-                'StartDate'=>$request->StartDate,
-                'EndDate'=>$request->EndDate,
-                'Duration'=>$Diffrence,
-                'volunteer_hours'=>$request->volunteer_hours,
-                'Gender'=>$request->Gender,
-                'Major'=>json_encode($request->Major),
-                'Location'=>$request->Location,
-                'Field'=>$request->Field
+                ]);
 
-            ]);
-
-        return redirect("MyVolunteerWorks")->with("success","Update Successfully");
+            return redirect("MyVolunteerWorks")->with("edit", "تم تحديث الفرصة بنجاح");
+        }
+        else
+        {
+            return redirect('welcome');
+        }
 
     }
-
-    /*
-                 //<a  class="delete"  data-confirm="Are you sure to delete this item?" href="MyVolunteerWorks/delete/{{{$work->WorkID}}}">Delete</a>
-
-
-                  <button  class="delete" onclick="document.getElementById('id01').style.display='block'" >Delete</button>
-
-                  //model
-                  <div id="id01" class="modal">
-                      <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
-                      <form class="modal-content" action="{{url("MyVolunteerWorks/delete/{WorkID}")}}" method="post">
-                          @method("delete")
-
-                          <div class="container">
-                              <h1>Delete Opportunities</h1>
-                              <p>Are you sure you want to delete your Opportunity?</p>
-
-                              <div class="clearfix">
-                                  <button type="button" class="cancelbtn">Cancel</button>
-                                  <button type="button" class="deletebtn">Delete</button>
-                              </div>
-                          </div>
-                      </form>
-                  </div>
-
-
-
-
-                   */
-
-
 }

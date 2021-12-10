@@ -13,7 +13,7 @@ use Spatie\Permission\Traits\HasRoles;
 class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable,HasRoles;
-
+    // the name of the table in the database
     protected $table = 'users';
 
 
@@ -38,19 +38,17 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
 
 
-
+    // one to one relationship
     public function volunteerwork()
     {
         return $this->hasOne(volunteerwork::class, "user_id" ,"WorkID"  );
-           // ->withPivot( "volunteerwork_user",'volunteer_id');
     }
+    // one to many relationship
     public function volunteerworks()
     {
         return $this->hasMany(volunteerwork::class, "user_id" , "WorkID" );
-        // ->withPivot( "volunteerwork_user",'volunteer_id');
     }
-//, "volunteerwork_user",'volunteer_id', 'V_WorkID')
-//->withPivot('volunteer_id', 'V_WorkID');
+
 
     public function hasAnyRole($roles)
     {
@@ -80,6 +78,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
 
 
+    // one to one relationship
 
     public function verifyuser()
     {

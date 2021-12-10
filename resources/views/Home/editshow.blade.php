@@ -109,6 +109,7 @@
                 <!-- Second row -->
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12">
+                        <p class="help-block">اسم الفرصة التطوعية</p>
                         <input class="update_input with_placeholder" name="Name" id="Name"  type="text" placeholder="اسم الفرصة التطوعية*" value="{{$work->Name}}" >
                     </div>
                 </div>
@@ -121,6 +122,7 @@
             <!-- Third row -->
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12">
+                        <p class="help-block">شرح موجز للفرصة التطوعية</p>
                         <input class="update_input with_placeholder"type="text" name="Description" value = "{{$work->Description}}"  maxlength="200" style="resize: none; height: 150px;" >
                     </div>
                 </div>
@@ -133,6 +135,7 @@
             <!-- Fourth row -->
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12">
+                        <p class="help-block">  المهارات المطلوبة للفرصة التطوعية</p>
                         <input class="update_input with_placeholder"  name="Skills" value = "{{$work->Skills}}" placeholder="المهارات المطلوبة للفرصة*" maxlength="200" style="resize: none; height: 150px;" >
                     </div>
                 </div>
@@ -145,6 +148,7 @@
             <!-- Fifith row -->
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12">
+                        <p class="help-block"> المهام المطلوبة للفرصة التطوعية</p>
                         <input class="update_input with_placeholder"  name="Tasks" value = "{{$work->Tasks}}" placeholder="المهام المطلوبة للفرصة*" maxlength="200" style="resize: none; height: 150px;" >
                     </div>
                 </div>
@@ -158,6 +162,7 @@
             <!-- Sixth row -->
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12">
+                        <p class="help-block"> الفوائد المكتسبة من الفرصة التطوعية</p>
                         <input class="update_input with_placeholder" name="Benefits"  type="text" placeholder="الفوائد المكتسبة من الفرصة*" value = "{{$work->Benefits}}">
                     </div>
                 </div>
@@ -170,12 +175,14 @@
                 <div class="row">
                     <!--First column-->
                     <div class="col-lg-6 col-md-12 col-sm-12">
+                        <p class="help-block">طريقة التواصل</p>
                         <input class="update_input with_placeholder" name="Communication"  type="text" placeholder="طريقة التواصل*" value = "{{$work->Communication}}">
                         <span class="arrow_icon"><i class="fas fa-angle-down"></i></span>
                     </div>
 
                     <!--Second column -->
                     <div class="col-lg-6 col-md-12 col-sm-12">
+                        <p class="help-block">عددد المتطوعين المطلوبين في الفرصة</p>
                         <input class="update_input with_placeholder" name="Volunteernum"  type="text" placeholder="عددد المتطوعين المطلوبين في الفرصة*" value = "{{$work->Volunteernum}}">
                         <span class="arrow_icon"><i class="fas fa-angle-down"></i></span>
                     </div>
@@ -197,18 +204,21 @@
                 <div class="row">
                     <!--First column-->
                     <div class="col-lg-6 col-md-12 col-sm-12">
+                        <p class="help-block">بداية الفرصة التطوعية*</p>
                         <input name="StartDate" placeholder="بداية التسجيل في الفرصة*" class="form-control update_input with_select" type="text" onfocus="(this.type='date')" id="date" value="{{$work->StartDate}}"
                                min="<?php $NewDate=date('m-d-Y', strtotime('+0 days')); echo $NewDate;?>" max="<?php $NewDate=date('m-d-Y', strtotime('+120 days')); echo $NewDate;?>">
                         <span class="arrow_icon"><i class="fas fa-angle-down"></i></span>
                     </div>
                     <!--Second column -->
                     <div class="col-lg-6 col-md-12 col-sm-12">
+                        <p class="help-block">نهاية الفرصة الفرصة التطوعية</p>
                         <input name="EndDate" placeholder="نهاية التسجيل في الفرصة*" class="form-control update_input with_select" type="text" onfocus="(this.type='date')" id="date"  value="{{$work->EndDate}}"
                                min="<?php $NewDate=date('m-d-Y', strtotime('+0 days')); echo $NewDate;?>" max="<?php $NewDate=date('m-d-Y', strtotime('+120 days')); echo $NewDate;?>">
                         <span class="arrow_icon"><i class="fas fa-angle-down"></i></span>
                     </div>
                     <!--Third column -->
                     <div class="col-lg-6 col-md-12 col-sm-12">
+                        <p class="help-block">عدد ساعات التطوع</p>
                         <input class="update_input with_placeholder" name="volunteer_hours"  type="text" placeholder="عدد ساعات التطوع المطلوبة *" value = "{{$work->volunteer_hours}}">
                         <span class="arrow_icon"><i class="fas fa-angle-down"></i></span>
                     </div>
@@ -235,8 +245,9 @@
                 <div class="row">
                     <!--First column-->
                     <div class="col-lg-6 col-md-12 col-sm-12">
+                        <p class="help-block">الجنس المطلوب للفرصة التطوعية</p>
                         <select  id="inputState" name="Gender" class="form-control update_input with_select">
-                            <option disabled="" selected="">Gender*</option>
+                            <option disabled="" selected="">الجنس*</option>
                             <option value="Male" {{($work->Gender === 'Male') ? 'Selected' : ''}} >ذكر</option>
                             <option value="Female" {{($work->Gender === 'Female') ? 'Selected' : ''}}>انثى</option>
                             <option value="Both" {{($work->Gender === 'Both') ? 'Selected' : ''}}>كلاهما</option>
@@ -246,6 +257,7 @@
 
                     <!--Second column -->
                     <div class="col-lg-6 col-md-12 col-sm-12">
+                        <p class="help-block">التخصصات المطلوبه في الفرصة</p>
                         <select class="selectpicker form-control update_input with_select " multiple  id="inputState" name="Major[]">
                             <option disabled="" selected="">التخصصات المطلوبه في الفرصة*</option>
 
@@ -282,6 +294,7 @@
                     <div class="row">
                         <!--First column-->
                         <div class="col-lg-6 col-md-12 col-sm-12">
+                            <p class="help-block">موقع الفرصة التطوعية</p>
                             <select  id="inputState" name="Location" class="form-control update_input with_select">
                                 <option disabled="" selected="">موقع الفرصة التطوعية*</option>
                                 <option value="كلية علوم الحاسب ونظم والمعلومات" {{($work->Major === 'كلية علوم الحاسب ونظم والمعلومات') ? 'Selected' : ''}}>كلية علوم الحاسب ونظم والمعلومات</option>
@@ -305,6 +318,7 @@
                         </div>
                         <!--Second column -->
                         <div class="col-lg-6 col-md-12 col-sm-12">
+                            <p class="help-block">نوع الفرصة التطوعية</p>
                             <select  id="inputState" name="Field" class="form-control update_input with_select">
                                 <option disabled="" selected="">نوع الفرصة التطوعية*</option>
                                 <option value="اجتماعي" {{($work->Field === 'اجتماعي') ? 'Selected' : ''}}>اجتماعي</option>

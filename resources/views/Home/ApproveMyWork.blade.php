@@ -1,7 +1,12 @@
-<html lang="ar" dir="rtl"><head>
+<html lang="ar"  dir="rtl"><head>
     <!-- Google Tag Manager -->
 
     <!-- End Google Tag Manager -->
+    <style>
+    </style>
+
+
+
 
     <meta charset="utf-8">
     <title>Volunteer Work Gate</title>
@@ -14,25 +19,12 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
     <link rel="stylesheet" href="{{asset('css/kendo/kendo.rtl.min.css')}}">
     <link rel="stylesheet" href="{{asset('css/Profile.css')}}">
+    <script src=//code.jquery.com/jquery-3.5.1.slim.min.js integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin=anonymous></script>
 
     <style>
-        table {
-            font-family: arial, sans-serif;
-            border-collapse: collapse;
-            width: 100%;
-        }
 
-        td, th {
-            border: 1px solid #dddddd;
-            text-align: left;
-            padding: 8px;
-        }
 
-        tr:nth-child(even) {
-            background-color: #fff;
-        }
     </style>
-
     <link href="https://fonts.googleapis.com/css?family=Tajawal:300,400&amp;display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="{{asset('css/ltr.css')}}">
@@ -40,10 +32,7 @@
 <body >
 
 <!-- Google Tag Manager (noscript) -->
-<noscript>
-    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PGJ397C"
-            height="0" width="0" style="display:none;visibility:hidden"></iframe>
-</noscript>
+
 <!-- End Google Tag Manager (noscript) -->
 
 
@@ -60,6 +49,9 @@
 
 </div>
 
+
+
+
 <style>
 
 
@@ -68,10 +60,9 @@
 
 
 
-    <!-- navbar -->
+
     <nav class="navbar navbar-expand-lg  navbar-light py-3 f">
         <div class="container">
-            <!-- Image-->
             <a href="{{route('home')}}" class=" d-none d-sm-block
                 ">
                 <img height="100" src="/img/logoAr.png">
@@ -101,6 +92,7 @@
 
                     <!-- Nav-item2 -->
 
+
                     <li class="nav-item dropdown">
                         @auth()
                             <a href="opportunies" class="nav-link px-3 dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" >{{ Auth::user()->username }}</a>
@@ -128,52 +120,47 @@
 
                 </ul>
             </div>
-            </div>
+        </div>
     </nav>
 </div>
-<!--This message appear when a volunteer register in opportunity  -->
-@if (session('success') )
-<div class="container ">
-    <div class="row container justify-content-center">
-        <div class="col-lg-4 col-md-4 col-sm-4">
-            <div class="alert alert-success  text-center">
-                {{ session('success') }}
-            </div>
-        </div>
-    </div>
-</div>
-@endif
-<!--This message appear when registered  volunteer cancel opportunity  -->
-@if (session('cancel') )
+
+<!--This message appear when provider who has certificate role approve his opportunity  -->
+@if (session('approval.MyOp') )
     <div class="container ">
         <div class="row container justify-content-center">
             <div class="col-lg-4 col-md-4 col-sm-4">
                 <div class="alert alert-success  text-center">
-                    {{ session('cancel') }}
+                    {{ session('approval.MyOp') }}
                 </div>
             </div>
         </div>
     </div>
 @endif
 
-<!--This message appear when registered  volunteer wants to cancel his opportunity before one day before one day from starting the opportunity -->
-@if (session('declined') )
+<!--This message appear when provider who has certificate role decline his opportunity  -->
+@if (session('decline.MyOp') )
     <div class="container ">
         <div class="row container justify-content-center">
             <div class="col-lg-4 col-md-4 col-sm-4">
-                <div class="alert alert-danger  text-center">
-                    {{ session('declined') }}
+                <div class="alert alert-success  text-center">
+                    {{ session('decline.MyOp') }}
                 </div>
             </div>
         </div>
     </div>
 @endif
-
 
 <div class="">
     <div id="apprun-app">
 
+
+
+
+
         <div class="container margin_top_small">
+            <div class="text-center">
+
+            </div>
 
             <div class="row">
                 <!-- hide in small screens -->
@@ -197,57 +184,64 @@
                     </div>
                 </div>
 
+                <!-- cards start -->
 
 
+                @foreach ($works as $work)
+                    <div class="col-lg-4 col-md-1 col-sm-10">
 
+                        <div  id="60d65e86-8e5a-46d0-1bc1-08d998986fd4" style="cursor: pointer;" class="card" data-step="2" data-intro="If you would like a specific opportunity, you can view its details here">
 
+                            <div  class="card_image" > <img src="/img/NajranLogoBig6.jpeg" style="border-radius: 10px;"></div>
 
-                <!-- Opportunity cards start -->
-
-
-                        @foreach ($works as $work)
-                            <div class="col-lg-4 col-md-4 col-sm-4">
-
-                                <div  id="60d65e86-8e5a-46d0-1bc1-08d998986fd4" style="cursor: pointer;" class="card" data-step="2" data-intro="If you would like a specific opportunity, you can view its details here">
-
-                                    <div  class="card_image" > <img src="/img/NajranLogoBig6.jpeg" style="border-radius: 10px;"></div>
-
-                                    <div class="complete" style="background-color:transparent !important;">
-                                        <p class="completed_text"></p>
-                                    </div>
-                                    <span class="text_on_image" style="color: #ffffff" >{{ $work->Name }} </span>
-                                    <p class="card_location">
-                                        {{ $work->Location }}                    </p>
-                                    <p data-toggle="tooltip" data-placement="top" title="" style="padding-bottom: 15px" class="card_title" data-original-title="توزيع سلال غذائية">{{ $work->Description }}</p>
-                                    <p class="card_text">{{ $work->Gender }}</p>
-                                    <hr>
-                                    <div class="row">
-                                        <div class="col-4">
-                                            <p class="days_number" data-date="5">تاريخ التسجيل</p>
-                                            <p class="dates">{{ $work->StartDate }} - <br>{{ $work->EndDate }}</p> <!-- End date - Start date -->
-                                        </div>
-                                        <div class="col-4">
-                                            <p class="seats_number">{{$work->Volunteernum }} المقاعد</p>
-                                            <p class="statuse">باقي من الوقت</p>
-                                        </div>
-                                        <div class="col-4">
-                                            <div data-step="3" data-intro="What are you waiting for! Click here to register for the opportunity">
-
-                                                <a class="join_btn btn_to_a mb-2"  href="MyVolunteerOpportunities/show/{{{$work->WorkID}}}">عرض الفرصة</a>
-                                                <a class="join_btn btn_to_a " onclick="return confirm('هل انت متأكد؟')" href="MyVolunteerOpportunities/delete/{{{$work->WorkID}}}/{{ $work->StartDate }}">الغاء الفرصة</a>
-
-
-                                            </div>
-                                        </div>
-
-                                    </div>
+                            <div class="complete" style="background-color:transparent !important;">
+                                <p class="completed_text"></p>
+                            </div>         <span class="text_on_image" style="color: #ffffff">{{ $work->Name }} </span>
+                            <p class="card_location">
+                                {{ $work->Location }}                    </p>
+                            <p data-toggle="tooltip" data-placement="top" title="" style="padding-bottom: 25px" class="card_title" data-original-title="توزيع سلال غذائية">{{ $work->Description }}</p>
+                            <p class="card_text">{{ $work->Gender }}</p>
+                            <hr>
+                            <div class="row">
+                                <div class="col-4">
+                                    <p class="days_number" data-date="5">تاريخ التسجيل</p>
+                                    <p class="dates">{{ $work->StartDate }} - <br>{{ $work->EndDate }}</p> <!-- End date - Start date -->
                                 </div>
+                                <div class="col-4">
+                                    <p class="seats_number">{{$work->Volunteernum }} المقاعد</p>
+                                    <p class="statuse">باقي من الوقت</p>
+                                </div>
+                                <div class="col-4 ">
+                                    <div data-step="3" data-intro="What are you waiting for! Click here to register for the opportunity">
+
+                                        <a class="join_btn btn_to_a mb-1"  href="MyVolunteerWorks/show/{{{$work->WorkID}}}">عرض الفرصة</a>
+                                    </div>
+
+                                        <input type="hidden" name="businessID" value="$work->WorkID"/>
+                                        <a class="join_btn btn_to_a mb-1" href="MyOpportunity/decline/{{$work->WorkID}}" onclick="return confirm('هل انت متأكد؟')" >
+                                            الغاء الفرصة
+                                        </a>
+
+
+
+
+                                        <a class="join_btn btn_to_a" href="MyOpportunity/Approve/{{$work->WorkID}}"  onclick="return confirm('هل انت متأكد؟')" >
+                                            الموافقة
+                                        </a>
+
+
+
+                                </div>
+                                </div>
+
                             </div>
+                        </div>
+                    </div>
 
-                        @endforeach
+            @endforeach
 
 
-                <!-- cards end -->
+            <!-- cards end -->
 
                 <!--this one has the real information -->
                 <div class="center-block text-center">
@@ -261,20 +255,79 @@
                 </div>
 
 
-            <footer>
-
-            </footer>
 
 
+                <div id="account" class="col-lg-6 col-md-12 col-sm-12">
+
+                    <div id="account" class="col-lg-6 col-md-12 col-sm-12">
+                        <button class="collapse_small_btn" type="button" data-toggle="collapse" data-target="#collapseAccount" aria-expanded="false" aria-controls="collapseExample">
+                            Account information
+                        </button>
+                        <div class="form toBeCollapse" id="collapseAccount">
+                            <div class="row">
+                                <div class="col-lg-5 col-md-12 col-sm-12" >
+
+
+
+
+
+
+                                    <!-- TODO: Add  style="display: none" in below div -->
+                                    <div id="teams" class="col-lg-8 col-md-12 col-sm-12" style="display: none">
+                                        <button class="collapse_small_btn" type="button" data-toggle="collapse" data-target="#collapseTeams" aria-expanded="false" aria-controls="collapseExample">
+                                            Statistics
+                                        </button>
+                                        <div class="form toBeCollapse" id="collapseTeams">
+                                            <div class="row">
+
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- TODO: Add  style="display: none" in below div -->
+                                    <div id="teams" class="col-lg-8 col-md-12 col-sm-12" style="display: none">
+                                        <button class="collapse_small_btn" type="button" data-toggle="collapse" data-target="#collapseTeams" aria-expanded="false" aria-controls="collapseExample">
+                                            Certifcates
+                                        </button>
+                                        <div class="form toBeCollapse" id="collapseTeams">
+                                            <div class="row">
+
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8ICO8GpWJxxDrG0exzfUJEibwXQO2yQB9QnoOgP3B8UtEnMnzhL9cEvXWjBcqRuemxgJvguld9csQNbJk28iMhNG5wc3lgl2o9fmPZvwof9oon4kWFnmUcxXL0oRavQXISW9OqGSplt_6dsRp_omJguuESIpRQXU8SWaRAZB5cSXmOks9FqQ0k9uvOgKt8sjEw">
+                            </div>
+
+                        </div>
+
+
+
+
+
+                        <footer>
+
+                        </footer>
+
+
+                    </div>
+
+
+
+
+
+
+                    <grammarly-desktop-integration data-grammarly-shadow-root="true"></grammarly-desktop-integration>
+                    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+
+                </div>
+            </div>
         </div>
-
-
-        <grammarly-desktop-integration data-grammarly-shadow-root="true"></grammarly-desktop-integration>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
-
-
-        </div>
-     </div>
     </div>
- </body>
+
+</body>
 </html>

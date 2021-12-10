@@ -16,8 +16,11 @@ use File;
 
 class AdminController extends Controller
 {
+    // this function will return a all Volunteer Works that has status 'Waiting for approval' to the view Admin.admin.
     public function index()
     {
+        if (Auth::check())
+        {
 
         return view('Admin.admin', [
             'works' => DB::table('volunteerworks AS t1')
@@ -28,228 +31,67 @@ class AdminController extends Controller
                     't1.Gender', 't1.Major', 't1.status', 't1.Location', 't1.Field')
                 ->join('users AS t2', 't2.id', '=', 't1.user_id')
                 ->Where(['t1.status' => 'Waiting for approval'])
-                //->orwhere('t1.Gender' ,'=', 'Male')
-                //-> orWhere('t1.Gender', '=', 'Both')
                 ->paginate(9)
 
 
         ]);
+        }
+        else
+        {
+            return redirect('welcome');
+        }
 
 
     }
-
+    /* this function will return Admin profile page  */
     public function profile()
     {
+        if (Auth::check())
+        {
 
+        return view('Admin.profile')->with("updateA", "تم تحديث  الحساب بنجاح");
 
-        return view('Admin.profile');
+        }
+        else
+        {
+            return redirect('welcome');
+        }
+
+    }
+    /* this function will update the phone number field if the Admin want to add a phone number */
+    public function updateProfile(Request $request)
+    {
+        if (Auth::check())
+        {
+
+            $validation= $request->validate([
+                'phone_no'=>'required',
+            ]);
+            $updating = DB::table("users")->where("id",$request->input("cid"))
+                ->update([
+
+                    'phone_no'=>$request->phone_no,
+                    // 'work'=>$request->work,
+
+                ]);
+
+            return redirect()->back()->with("updateA","تم تحديث الحساب بنجاح");
+
+        }
+        else
+        {
+            return redirect('welcome');
+        }
+
 
     }
 
-    public function users()
-    {
 
-        $users = User::where('work', 'faculty member')
-            ->orwhere('work', 'administrative')
-            ->take(10)
-            ->get();
-
-        return view('Admin.users2', compact('users'));
-    }
-
-
-
-    public function certificates()
-    {
-
-
-        $Certifcates = Certificate::all()->where("Status","=","طلب شهادة من صاحب العمل ");
-        return view('Admin.Certificates', ['Certificates' => $Certifcates]);
-    }
-
-    public function GiveCertificates($id,$VolunteerName, $VolunteerId, $WorkId, $WorkName, $StartDate, $EndDate, $VolunteeringHours, $ProviderName)
-    {
-        //dd($VolunteerName);
-          $img = Image::make(public_path('storage/Cer.jpg'));
-
-
-          $img->text($VolunteerName, 1250, 700, function($font)   {
-  // x= 1800, y= 1320,
-              $font->file(public_path('storage/Lato-Regular.ttf'));
-              $font->size(80);
-              $font->color('#000000');
-
-
-              $font->align('center');
-              $font->valign('bottom');
-              //$font->angle(90);
-          });
-          $img->text($WorkName, 1250, 976, function($font)   {
-  // x= 1800, y= 1320,
-              $font->file(public_path('storage/Lato-Regular.ttf'));
-              $font->size(80);
-              $font->color('#000000');
-
-
-              $font->align('center');
-              $font->valign('bottom');
-              //$font->angle(90);
-          });
-
-          //start date
-          $img->text($StartDate, 1630, 1075, function($font)   {
-  // x= 1800, y= 1320,
-              $font->file(public_path('storage/Lato-Regular.ttf'));
-              $font->size(48);
-              $font->color('#000000');
-
-
-              $font->align('center');
-              $font->valign('bottom');
-              //$font->angle(90);
-          });
-  //end date
-          $img->text($EndDate, 1268, 1075, function($font)   {
-  // x= 1800, y= 1320,
-              $font->file(public_path('storage/Lato-Regular.ttf'));
-              $font->size(48);
-              $font->color('#000000');
-
-
-              $font->align('center');
-              $font->valign('bottom');
-              //$font->angle(90);
-          });
-
-  // hours
-          $img->text($VolunteeringHours, 910, 1075, function($font)   {
-  // x= 1800, y= 1320,
-              $font->file(public_path('storage/Lato-Regular.ttf'));
-              $font->size(48);
-              $font->color('#000000');
-
-
-              $font->align('center');
-              $font->valign('bottom');
-              //$font->angle(90);
-          });
-
-  // provider name
-          $img->text($ProviderName, 1820, 1600, function($font)   {
-  // x= 1800, y= 1320,
-              $font->file(public_path('storage/Lato-Regular.ttf'));
-              $font->size(55);
-              $font->color('#000000');
-
-
-              $font->align('center');
-              $font->valign('bottom');
-              //$font->angle(90);
-          });
-  //admin name
-          $img->text('Abdullah Mohammed Alanazi  ', 600, 1600, function($font)   {
-  // x= 1800, y= 1320,
-              $font->file(public_path('storage/Lato-Regular.ttf'));
-              $font->size(55);
-              $font->color('#000000');
-
-
-              $font->align('center');
-              $font->valign('bottom');
-              //$font->angle(90);
-          });
-
-          $path= 'app\public'.'\\'.$WorkId ;
-
-          if(!File::exists(storage_path($path))) {
-
-              File::makeDirectory (storage_path($path));
-
-              $img->save(storage_path($path.'\\'.'Cer' .$VolunteerId.'.jpg'));
-
-          }else{
-              $img->save(storage_path($path.'\\'.'Cer' .$VolunteerId.'.jpg'));
-
-          }
-
-        $Certifcates = Certificate::where('id', '=', ($id))->first();
-
-        $Certifcates->Status = "تمت الموافقة";
-        $Certifcates->save();
-
-          //dd(public_path($path.'\\'.'Cer' .$VolunteerId.'.jpg'));
-
-        return redirect()->back()->with("success","You have successfully gave the Volunteer the certificate  opportunity");
-    }
-
-     /*public function CerApproval($WorkID)
-   {
-       $works = volunteerwork::where('WorkID', '=', ($WorkID))->first();
-       if ($works) {
-           $works->status = "Approved";
-           $works->save();
-           return redirect()->back()->with("success","successful approval");
-
-       }
-   }*/
-
-
-
-
-
-    public function update(Request $request, $id)
-    {
-     $user= User::findOrFail($id);
-
-      //  $requestData=$request;
-
-        $user->update($request->except(['_token','roles']));
-        //$roles = $request->input('roles') ? $request->input('roles') : [];
-        $user->roles()->sync($request->roles);
-
-        return redirect("users");
-    }
-
-
-
-
-
-
-
-
-    public function editC(User $user)
-    {
-        return view('Admin.edit2', [
-            'user' => $user,
-            'userRole' => $user->roles->pluck('name')->toArray(),
-            'roles' => Role::latest()->get()
-        ]);
-    }
-    /*public function edit(User $user)
-    {
-
-       // $roles = Role::get()->pluck('name', 'name');
-
-       // return view('Admin.edit', compact('user', 'roles'));
-        return view('Admin.edit', ['roles'=> Role::all()]);
-    }*/
-
-
-
-
-   /* public function delete($id)
-    {
-        $data=array(
-            "list" =>DB::table("volunteerworks")->where("id",$id)->delete()
-        );
-        return view('Admin.admin', $data);
-
-
-    }*/
+    // this function will return the available Volunteer Work to admin
     public function show($WorkID)
     {
-        // give this to abdulaziz because you forget the information about the person who created the work
-        if (Auth::check()) {
+        if (Auth::check())
+        {
             return view('Admin.ShowWork', [
                 'work' => DB::table("volunteerworks AS t1")
                     ->select('t1.WorkID', 't1.Name', 't1.Description',
@@ -265,95 +107,228 @@ class AdminController extends Controller
             ]);
 
 
-        } else {
-            return redirect('/');
+        }
+        else
+        {
+            return redirect('welcome');
         }
     }
 
-  /* public function approval(Request $request)
-    {
 
-        $list= volunteerwork::find($request->workId);
-$approveVal=$request->is_approve;
-if($approveVal=="on"){
-    $approveVal=1;
-
-}else{
-    $approveVal=0;
-}
-        $list->is_approve=$approveVal;
-        $list->save();
-        return redirect()->back();
-    }
-
-  هذا ينحط داخل الادمن الزر
-                    <form action="{{url("approve")}}" method="POST">
-                              @csrf
-
-                                <input class="btn btn-primary " type="submit" value="approve">
-                                <input  @if($list->is_approve==1) {{"checked"}}@endif
-                                    type="checkbox" id="scales" name="is_approve" >
-                                <input type="hidden" name="workId" value="{{$list->id}}">
-
-                            </form>
-
-
-  */
-
+    // This function will change  the  Status of the work when admin click approve button
     public function approval($WorkID)
     {
-        $works = volunteerwork::where('WorkID', '=', ($WorkID))->first();
-        if ($works) {
-            $works->status = "Approved";
-            $works->save();
-            return redirect()->back()->with("success","successful approval");
+        if (Auth::check())
+        {
+            $works = volunteerwork::where('WorkID', '=', ($WorkID))->first();
+            if ($works)
+            {
+                $works->status = "Approved";
+                $works->save();
+                return redirect()->back()->with("approval","تمت الموافقة بنجاح");
+            }
+            else
+            {
+                return redirect('welcome');
+            }
 
         }
     }
+    // This function will change  the  Status of the work when admin click decline button
     public function decline($WorkID)
     {
-        $works = volunteerwork::where('WorkID', '=', ($WorkID))->first();
-        if ($works) {
-            $works->status = "Declined";
-            $works->save();
-            return redirect()->back()->with("success","successful decline ");
+        if (Auth::check())
+        {
+            $works = volunteerwork::where('WorkID', '=', ($WorkID))->first();
+            if ($works)
+            {
+                $works->status = "Declined";
+                $works->save();
+                return redirect()->back()->with("decline","تم الغاء الفرصة بنجاح ");
+            }
+            else
+            {
+                return redirect('welcome');
+            }
 
         }
     }
-/*<form method="post" action="{{route('admin.decline',$work->WorkID)}}">
-@csrf
-<input type="hidden" name="businessID" value="$work->WorkID"/>
-<button class="btn " type="submit">
-Decline
-</button>
-</form>
+
+    /* This function will make the admin see all the details of opportunity providers on the site */
+    public function users()
+    {
+        if (Auth::check())
+        {
+            $users = User::where('work', 'faculty member')
+                ->orwhere('work', 'administrative')
+                ->get();
+
+            return view('Admin.users2', compact('users'));
+
+        }
+        else
+        {
+            return redirect('welcome');
+        }
+    }
+
+    public function editC(User $user)
+    {
+        if (Auth::check())
+        {
+            return view('Admin.edit2', [
+                'user' => $user,
+                'userRole' => $user->roles->pluck('name')->toArray(),
+                'roles' => Role::latest()->get()
+            ]);
+        }
+        else
+        {
+            return redirect('welcome');
+        }
+    }
 
 
-<input type="hidden" name="businessID" value="$work->WorkID"/>
-<button class="delete" onclick="document.getElementById('id01').style.display='block'" type="submit">
-Approve
-</button>
+    public function update(Request $request, $id)
+    {
+        if (Auth::check())
+        {
+            $user= User::findOrFail($id);
+
+            //$user->update($request->except(['_token','roles']));
+            $user->roles()->sync($request->roles);
+
+            return redirect("users");
+        }
+        else
+        {
+            return redirect('welcome');
+        }
+    }
 
 
-   Model /
-<div id="id01" class="modal">
-                                <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
-                                <form class="modal-content" action="{{route('admin.approve',$work->WorkID)}}" method="post">
-                                    @csrf
-
-                                    <div class="container">
-                                        <h1>Approve Opportunities</h1>
-                                        <p>Are you sure you want to approve the Opportunity?</p>
-
-                                        <div class="clearfix">
-                                            <button type="button" class="cancelbtn">Cancel</button>
-                                            <button type="button" class="deletebtn">Approve</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
 
 
-    */
+
+    // This function will return all the Certificates that has Status "طلب شهادة من صاحب العمل " to the view Admin.Certificates.
+    public function certificates()
+    {
+        if (Auth::check())
+        {
+
+        $Certifcates = Certificate::all()->where("Status","=","طلب شهادة من صاحب العمل ");
+        return view('Admin.Certificates', ['Certificates' => $Certifcates]);
+        }
+        else
+        {
+            return redirect('welcome');
+        }
+    }
+    //  This function will create a Certificates with the name of the volunnter, Work Name, StartDate, EndDaete, VolunteeringHours, and the Provider name of the Volunteer Opportunity.
+    public function GiveCertificates($id,$VolunteerName, $VolunteerId, $WorkId, $WorkName, $StartDate, $EndDate, $VolunteeringHours, $ProviderName)
+    {
+        if (Auth::check())
+        {
+            // Read Image from the selected path
+          $img = Image::make(public_path('storage/Cer.jpg'));
+
+            //Write on Image the VolunteerName with 1250 on x axis and 700 on y axis
+          $img->text($VolunteerName, 1250, 700, function($font)
+          {
+              //Change the font of the text
+              $font->file(public_path('storage/Lato-Regular.ttf'));
+              //Change the font of the text
+              $font->size(80);
+              //Change the color of the text
+              $font->color('#000000');
+              //Horizontal Alignment
+              $font->align('center');
+              //Vertical Alignment
+              $font->valign('bottom');
+
+          });
+            //  WorkName
+            $img->text($WorkName, 1250, 976, function($font)
+            {
+              $font->file(public_path('storage/Lato-Regular.ttf'));
+              $font->size(80);
+              $font->color('#000000');
+              $font->align('center');
+              $font->valign('bottom');
+          });
+            //  StartDate
+          $img->text($StartDate, 1630, 1075, function($font)
+          {
+              $font->file(public_path('storage/Lato-Regular.ttf'));
+              $font->size(48);
+              $font->color('#000000');
+              $font->align('center');
+              $font->valign('bottom');
+          });
+            //  EndDate
+            $img->text($EndDate, 1268, 1075, function($font)
+            {
+              $font->file(public_path('storage/Lato-Regular.ttf'));
+              $font->size(48);
+              $font->color('#000000');
+              $font->align('center');
+              $font->valign('bottom');
+          });
+            // $VolunteeringHours
+            $img->text($VolunteeringHours, 910, 1075, function($font)
+            {
+              $font->file(public_path('storage/Lato-Regular.ttf'));
+              $font->size(48);
+              $font->color('#000000');
+              $font->align('center');
+              $font->valign('bottom');
+          });
+            // provider name
+            $img->text($ProviderName, 1820, 1600, function($font)
+            {
+              $font->file(public_path('storage/Lato-Regular.ttf'));
+              $font->size(55);
+              $font->color('#000000');
+              $font->align('center');
+              $font->valign('bottom');
+
+          });
+            //  admin name
+          $img->text('Mohamed Ali Hamdi  ', 600, 1600, function($font)
+          {
+              $font->file(public_path('storage/Lato-Regular.ttf'));
+              $font->size(55);
+              $font->color('#000000');
+              $font->align('center');
+              $font->valign('bottom');
+          });
+            //  $path is the name of the path that  the image will be saved to after modification
+          $path= 'app\public'.'\\'.$WorkId ;
+
+            // if the folder doesn't exits, than make a folder and create the certifcate with the VolunteerID to the name of Certifcate
+            if(!File::exists(storage_path($path)))
+            {
+
+              File::makeDirectory (storage_path($path));
+
+              $img->save(storage_path($path.'\\'.'Cer' .$VolunteerId.'.jpg'));
+                // if the folder exits than, just create the certifcate with the VolunteerID to the name of Certifcate
+            }
+            else
+            {
+              $img->save(storage_path($path.'\\'.'Cer' .$VolunteerId.'.jpg'));
+            }
+            //Change the status of Certifcate to "تمت الموافقة"
+            $Certifcate = Certificate::where('VolunteerId', '=', $VolunteerId)->where('WorkId', '=', $WorkId)->first();
+            $Certifcate->Status = "تمت الموافقة على الشهادة";
+            $Certifcate->save();
+
+            return redirect()->back()->with("success","تم اصدار الشهادة التطوعية للمتطوع");
+            }
+          else
+            {
+            return redirect('welcome');
+             }
+    }
 
 }

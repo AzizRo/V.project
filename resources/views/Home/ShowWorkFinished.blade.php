@@ -125,10 +125,8 @@
 
 <div id="apprun-app" dir="rtl">
 
-
+    <!--Opportunity Starts -->
     <div class="container margin_top_small" id="result" style="" >
-
-
 
         <input type="hidden" name="teamIdAsLeader" value="0">
         <input type="hidden" id="opportunityId" value="5c4e23ec-9a80-4ace-ad42-08d9a391296a">

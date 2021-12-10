@@ -12,29 +12,39 @@ use Illuminate\Support\Facades\Hash;
 
 class ProfileController extends Controller
 {
+    // this function will return Home.Profile view
     public function index()
     {
-
-
+        if (Auth::check())
+        {
         return view('Home.Profile');
+        }
+        else
+        {
+            return redirect('welcome');
+        }
+
     }
-
-
-
+    /* this function will update the phone number field if the users want to add a phone number */
     public function update(Request $request)
     {
-        $validation= $request->validate([
-            'phone_no'=>'required',
-        ]);
-        $updating = DB::table("users")->where("id",$request->input("cid"))
-            ->update([
+        if (Auth::check()) {
 
-            'phone_no'=>$request->phone_no,
-           // 'work'=>$request->work,
+            $validation= $request->validate([
+                'phone_no'=>'required',
+            ]);
+            $updating = DB::table("users")->where("id",$request->input("cid"))
+                ->update([
 
-        ]);
+                    'phone_no'=>$request->phone_no,
+                ]);
 
-        return redirect()->back()->with("success","Update Successfully");
+            return redirect()->back()->with("updateU","تم تحديث الحساب بنجاح");
+        }
+        else
+        {
+            return redirect('welcome');
+        }
 
     }
 }

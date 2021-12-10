@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>دخول</title>
+    <!-- bootstrap link  -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="{{asset('css/Sign-in.css')}}">
@@ -33,7 +34,7 @@
                 <img src="img/sign-in.svg" class="img-fluid" alt="">
             </div>
 
-            <!-- Text -->
+            <!-- Text messages about success operation or fail operation in login page -->
             <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
 
                 @if (session('message'))
@@ -41,16 +42,20 @@
                         {{ session('message') }}
                     </div>
                 @endif
+
+
                 @if (session('success'))
                     <div class="alert alert-success">
                         {{ session('success') }}
                     </div>
                 @endif
+
                 @if (session('error'))
                     <div class="alert alert-danger">
                         {{ session('error') }}
                     </div>
                 @endif
+
                 @if (session('info'))
                     <div class="alert alert-danger">
                         {{ session('info') }}
@@ -92,19 +97,16 @@
                         @enderror
                     </div>
 
-                    <!-- Checkbox -->
+                    <!-- Forget password -->
                     <div class="d-flex justify-content-between align-items-center" dir="ltr">
                         <div class="form-check mb-0">
-                            <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3"  />
-                            <label class="form-check-label" for="form2Example3">
-                                تذكرني
-                            </label>
+
                         </div>
                         <a href="{{route('forget.password.get')}}" class="text-body">نسيت كلمة المرور?</a>
                     </div>
 
-                    <!-- Text-->
-                    <div class="text-center text-lg-start mt-4 pt-2">
+                    <!-- Text and button submit-->
+                    <div class="text- text-lg-start mt-4 pt-2">
                         <button type="submit" class="btn text-light btn-lg"
                                 style="padding-left: 2.5rem; padding-right: 2.5rem; background-color: #39c095;">دخول</button>
                         <p class="small fw-bold mt-2 pt-1 mb-0">لاتملك حساب ? <a  href="{{route('Register')}}"

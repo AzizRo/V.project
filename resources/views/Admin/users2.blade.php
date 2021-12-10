@@ -99,40 +99,7 @@
 
 
 <footer>
-    <hr>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-4 col-md-12 col-sm-12">
-                <ul>
-                    <li>
-                        <a class="copy_right" href="/About/Faq">Common Questions</a>
-                    </li>
-                    <li>
-                        <a class="copy_right" href="/About/TutorialGuides">Help</a>
-                    </li>
-                    <li>
-                        <a class="copy_right" href="/About/Agreement">The Ethical Charter For Volunteering</a>
-                    </li>
-                    <li>
-                        <a class="copy_right" target="_blank" href="/files/VolunteerUserManual.pdf">User Guide</a>
-                    </li>
-                    <li>
-                        <a class="copy_right" href="/AbpLocalization/ChangeCulture?cultureName=ar-SA&amp;returnUrl=Home">Arabic</a>
-                    </li>
-                    <li>
-                        <a class="copy_right" href="/AbpLocalization/ChangeCulture?cultureName=en-US&amp;returnUrl=Home">English</a>
-                    </li>
 
-                </ul>
-            </div>
-
-            <div class="col-lg-4 col-md-12 col-sm-12 text-center">
-                <p class="copy_right">All rights reserved. Volunteer work platform  2021  <br> Powered by Tamkeen Technologies</p>
-            </div>
-            <div class="col-lg-4 col-md-12 col-sm-12 text-center">
-            </div>
-        </div>
-    </div>
 </footer>
 
 
@@ -178,7 +145,7 @@
                     </td>
                     <td>
 
-                    <a href="{{ route('users.edit', $user->id) }}" class="btn btn-warning btn-sm">ShowRoles</a>
+                    <a href="{{ route('users.edit', $user->id) }}" class="btn btn-warning btn-sm">عرض الادوار</a>
 
 
                     </td>

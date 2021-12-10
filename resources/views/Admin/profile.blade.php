@@ -126,6 +126,20 @@
         </div>
     </nav>
 </div>
+<!--This message appear when a admin update his account  -->
+@if (session('updateA') )
+    <div class="container ">
+        <div class="row container justify-content-center">
+            <div class="col-lg-4 col-md-4 col-sm-4">
+                <div class="alert alert-success  text-center">
+                    {{ session('updateA') }}
+                </div>
+            </div>
+        </div>
+    </div>
+@endif
+
+
 <div class="">
     <div id="apprun-app" >
 
@@ -138,24 +152,10 @@
             <div class="text-center">
 
             </div>
-            @if (session('message'))
-                <div class="alert alert-danger">
-                    {{ session('message') }}
-                </div>
-            @endif
-            @if (session('success'))
-                <div class="alert alert-success">
-                    {{ session('success') }}
-                </div>
-            @endif
-            @if (session('error'))
-                <div class="alert alert-danger">
-                    {{ session('error') }}
-                </div>
-            @endif
 
 
-            <form method= "POST" action ="{{route("profile/update")}}">
+
+            <form method= "POST" action ="{{route("Admin2/profile/update")}}">
                 @csrf
 
                 <input type="hidden" name="cid" value="{{ Auth::user()->id }}">
@@ -194,7 +194,7 @@
                                 </div>
                                 <div class="col-lg-5 col-md-12 col-sm-12">
                                     <p class="help-block">رقم الجوال</p>
-                                    <input type="text" id="phone_no" name="phone_no" placeholder="Phone Number" class="update_input with_placeholder @error('phone_no') border-danger @endif" value="{{old('phone_no')}}">
+                                    <input type="text" id="phone_no" name="phone_no" placeholder="Phone Number" class="update_input with_placeholder @error('phone_no') border-danger @endif" value="{{ Auth::user()->phone_no }}">
 
                                 </div>
                                 @endauth
@@ -224,41 +224,7 @@
 
 
     <footer>
-        <hr>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-4 col-md-12 col-sm-12">
-                    <ul>
-                        <li>
-                            <a class="copy_right" href="/About/Faq">Common Questions</a>
-                        </li>
-                        <li>
-                            <a class="copy_right" href="/About/TutorialGuides">Help</a>
-                        </li>
-                        <li>
-                            <a class="copy_right" href="/About/Agreement">The Ethical Charter For Volunteering</a>
-                        </li>
-                        <li>
-                            <a class="copy_right" target="_blank" href="/files/VolunteerUserManual.pdf">User Guide</a>
-                        </li>
-                        <li>
-                            <a class="copy_right" href="/AbpLocalization/ChangeCulture?cultureName=ar-SA&amp;returnUrl=Home">Arabic</a>
-                        </li>
-                        <li>
-                            <a class="copy_right" href="/AbpLocalization/ChangeCulture?cultureName=en-US&amp;returnUrl=Home">English</a>
-                        </li>
 
-                    </ul>
-                </div>
-
-                <div class="col-lg-4 col-md-12 col-sm-12 text-center">
-                    <p class="copy_right">All rights reserved. Volunteer work platform <br> Powered by Tamkeen Technologies</p>
-                </div>
-                <div class="col-lg-4 col-md-12 col-sm-12 text-center">
-
-                </div>
-            </div>
-        </div>
     </footer>
 
 

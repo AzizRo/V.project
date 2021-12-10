@@ -135,6 +135,30 @@
     </div>
 </nav>
 
+<!-- success message if provider give certificate to admin  -->
+@if (session('giveAdmin'))
+    <div class="container ">
+        <div class="row container justify-content-center">
+            <div class="col-lg-4 col-md-4 col-sm-4">
+                <div class="alert alert-success  text-center">
+                    {{ session('giveAdmin') }}
+                </div>
+            </div>
+        </div>
+    </div>
+@endif
+<!--  Error message if he gave the certificate again to the same volunteer-->
+@if (session('error'))
+    <div class="container ">
+        <div class="row container justify-content-center">
+            <div class="col-lg-4 col-md-4 col-sm-4">
+                <div class="alert alert-danger  text-center">
+                    {{ session('error') }}
+                </div>
+            </div>
+        </div>
+    </div>
+@endif
 
 
 
@@ -174,47 +198,46 @@
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12">
                 <div class="white_background" data-step="2" data-intro="معلومات الفرصة" data-position="top">
-                    <table>
+                    <table class="align-items-end " >
                         <tr>
-                            <th>Volunteer Number</th>
-                            <th>id</th>
-                            <th>اسم المسجل  </th>
+                            <th>رقم المتطوع</th>
+                            <th>اسم المسجل </th>
                             <th>اسم الاب</th>
                             <th>اسم العائلة</th>
                             <th>تخصص المتطوع</th>
                             <th>جنس المتطوع</th>
                             <th>عمل المتطوع</th>
-                            <th>ايميل المتطوع</th>
                             <th>اصدار الشهادة</th>
 
                         </tr>
                         @foreach ($work as $key=>$work)
+                            <input type="hidden" name="businessID" value="$work->email"/>
+
+                            <input type="hidden" name="businessID" value="$work->id"/>
                             <tr>
                                 @if($key==0)
                                     <td>{{$key=1}}</td>
-                                    <td>{{$work->id}}</td>
                                     <td>{{$work->first_name}}</td>
                                     <td>{{$work->middle_name}}</td>
                                     <td>{{$work->family_name}}</td>
                                     <td>{{$work->Select}}</td>
                                     <td>{{$work->gender}}</td>
                                     <td>{{$work->work}}</td>
-                                    <td>{{$work->email}}</td>
+
 
 
                                 <!--{! !nl2br  makes a space -->
-                                    <td><a href="/GiveCertificate/{{$work->first_name }}  {{' '}}  {{$work->middle_name}}  {{' '}}  {{$work->family_name}}/{{$work->id}}/{{$WorkName[0]}}/{{$WorkName[1]}}/{{$WorkName[2]}}/{{$WorkName[3]}}/{{$WorkName[4]}}/{{$WorkName[5]}}">Give Certifacte</a></td>
+                                    <td><a href="/GiveCertificate/{{$work->first_name }}  {{' '}}  {{$work->middle_name}}  {{' '}}  {{$work->family_name}}/{{$work->id}}/{{$WorkName[0]}}/{{$WorkName[1]}}/{{$WorkName[2]}}/{{$WorkName[3]}}/{{$WorkName[4]}}/{{$WorkName[5]}}">اصدر الشهادة</a></td>
 
                                 @else
                                 <td>{{$key}}</td>
-                                <td>{{$work->id}}</td>
                                 <td>{{$work->first_name}}</td>
                                 <td>{{$work->middle_name}}</td>
                                 <td>{{$work->family_name}}</td>
                                 <td>{{$work->Select}}</td>
                                 <td>{{$work->gender}}</td>
                                 <td>{{$work->work}}</td>
-                                <td>{{$work->email}}</td>
+
                                     @php
                                         $i = 1
                                     @endphp

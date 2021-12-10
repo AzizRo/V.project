@@ -1,12 +1,4 @@
 <html lang="ar"  dir="rtl"><head>
-    <!-- Google Tag Manager -->
-
-    <!-- End Google Tag Manager -->
-    <style>
-    </style>
-
-
-
 
     <meta charset="utf-8">
     <title>Volunteer Work Gate</title>
@@ -28,44 +20,27 @@
     <link href="https://fonts.googleapis.com/css?family=Tajawal:300,400&amp;display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="{{asset('css/ltr.css')}}">
-<style></style></head>
+
+</head>
 <body >
-
-    <!-- Google Tag Manager (noscript) -->
-    <noscript>
-        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PGJ397C"
-                height="0" width="0" style="display:none;visibility:hidden"></iframe>
-    </noscript>
-    <!-- End Google Tag Manager (noscript) -->
-
 
 
 <div id="full_loader_overlay" style="display: none;">
 
     <div>
-        <span id="wisdom">  Volunteering in the service of our country ... giving and building to our society </span>
-        <span id="author" class="loading__author"> Volunteer Work Gate </span>
-        <br>
+
         <span class="loading__anim"></span>
     </div>
 
 
 </div>
 
-
-
-
-    <style>
-
-
-    </style>
     <div class="">
 
-
-
-
+        <!-- navbar -->
         <nav class="navbar navbar-expand-lg  navbar-light py-3 f">
             <div class="container">
+                <!-- Image -->
                 <a href="{{route('home')}}" class=" d-none d-sm-block
                 ">
                     <img height="100" src="/img/logoAr.png">
@@ -95,8 +70,6 @@
 
                         <!-- Nav-item2 -->
 
-
-                        <!-- Nav-item3 -->
                         <li class="nav-item dropdown">
                             @auth()
                                 <a href="opportunies" class="nav-link px-3 dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" >{{ Auth::user()->username }}</a>
@@ -127,13 +100,22 @@
                 </div>
          </nav>
     </div>
+    <!--This message appear when a volunteer update his account  -->
+    @if (session('edit') )
+        <div class="container ">
+            <div class="row container justify-content-center">
+                <div class="col-lg-4 col-md-4 col-sm-4">
+                    <div class="alert alert-success  text-center">
+                        {{ session('edit') }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
     <div class="">
         <div id="apprun-app">
 
 
-<style>
-
-</style>
 
 
 
@@ -152,6 +134,10 @@
                     <a href="{{url("MyVolunteerWorks")}}"><button id="healthBtn" type="button" onclick="showOption(this.id)" class="option_text">الفرص المنشئة الخاصة بي</button></a>
                     @endrole
                     <hr>
+                    @role('certificate')
+                    <a href="{{url("ApproveMyOpportunity")}}"><button id="healthBtn" type="button" onclick="showOption(this.id)" class="option_text">الموافقة على الفرص المنشئة الخاصة بي </button></a>
+                    @endrole
+                    <hr>
                     @role('volunteer')
                     <a href="{{url("MyVolunteerOpportunities")}}"><button id="healthBtn" type="button" onclick="showOption(this.id)" class="option_text">فرص التطوع الخاصة بي</button></a>
                     @endrole
@@ -159,136 +145,63 @@
                     <a href="{{url("certificate")}}"><button id="educationBtn" type="button" onclick="window.location.href='/Account/AdvancedProfile'" class="option_text">الشهادات التطوعية</button></a>
                 </div>
             </div>
-            <div id="account" class="col-lg-6 col-md-12 col-sm-12">
 
-                <div id="account" class="col-lg-6 col-md-12 col-sm-12">
-                    <button class="collapse_small_btn" type="button" data-toggle="collapse" data-target="#collapseAccount" aria-expanded="false" aria-controls="collapseExample">
-                        Account information
-                    </button>
-            <div class="form toBeCollapse" id="collapseAccount">
-                <div class="row">
-                    <div class="col-lg-5 col-md-12 col-sm-12" >
-
-                        @if (session('message'))
-                            <div class="alert alert-danger">
-                                {{ session('message') }}
-                            </div>
-                        @endif
-                        @if (session('success'))
-                            <div class="alert alert-success">
-                                {{ session('success') }}
-                            </div>
-                        @endif
-                        @if (session('error'))
-                            <div class="alert alert-danger">
-                                {{ session('error') }}
-                            </div>
-                    @endif
-
-                            <!--my code-->
-                            <!-- cards start -->
-
-                            <!-- cards start -->
-
-                            <div class="cards container" style="margin-bottom: 50px;">
-
-                                <div class="row justify-content-center">
-                                    @foreach ($works as $work)
-                                        <div class="col-lg-8 col-md-1 col-sm-10">
-
-                                            <div  id="60d65e86-8e5a-46d0-1bc1-08d998986fd4" style="cursor: pointer;" class="card" data-step="2" data-intro="If you would like a specific opportunity, you can view its details here">
-
-                                                <div  class="card_image" > <img src="/img/NajranLogoBig6.jpeg" style="border-radius: 10px;"></div>
-
-                                                <div class="complete" style="background-color:transparent !important;">
-                                                    <p class="completed_text"></p>
-                                                </div>         <span class="text_on_image" style="color: #ffffff">{{ $work->Name }} </span>
-                                                <p class="card_location">
-                                                    {{ $work->Location }}                    </p>
-                                                <p data-toggle="tooltip" data-placement="top" title="" class="card_title" data-original-title="توزيع سلال غذائية">{{ $work->Description }}</p>
-                                                <p class="card_text">{{ $work->Gender }}</p>
+            <!-- Opportunity cards start -->
 
 
-                                                <hr>
-                                                <div class="row">
-                                                    <div class="col-4">
-                                                        <p class="days_number" data-date="5">تاريخ التسجيل</p>
-                                                        <p class="dates">{{ $work->StartDate }} - <br>{{ $work->EndDate }}</p> <!-- End date - Start date -->
-                                                    </div>
-                                                    <div class="col-4">
-                                                        <p class="seats_number">{{$work->Volunteernum }} المقاعد</p>
-                                                        <p class="statuse">باقي من الوقت</p>
-                                                    </div>
-                                                    <div class="col-4">
-                                                        <div data-step="3" data-intro="What are you waiting for! Click here to register for the opportunity">
+                    @foreach ($works as $work)
+                        <div class="col-lg-4 col-md-1 col-sm-10">
 
-                                                            <a class="join_btn btn_to_a"  href="MyVolunteerWorks/show/{{{$work->WorkID}}}">عرض الفرصة</a><br>
-                                                            <a class="join_btn btn_to_a"  href="MyVolunteerWorks/update/{{{$work->WorkID}}}">تعديل الفرصة</a><br>
-                                                            <a class="join_btn btn_to_a" onclick="return confirm('Are you sure?')" href="{{route('opportunity.delete',$work->WorkID)}}">الغاء الفرصة</a>
+                            <div  id="60d65e86-8e5a-46d0-1bc1-08d998986fd4" style="cursor: pointer;" class="card" data-step="2" data-intro="If you would like a specific opportunity, you can view its details here">
 
-                                                        </div>
-                                                    </div>
+                                <div  class="card_image" > <img src="/img/NajranLogoBig6.jpeg" style="border-radius: 10px;"></div>
 
-                                                </div>
-                                            </div>
+                                <div class="complete" style="background-color:transparent !important;">
+                                    <p class="completed_text"></p>
+                                </div>         <span class="text_on_image" style="color: #ffffff">{{ $work->Name }} </span>
+                                <p class="card_location">
+                                    {{ $work->Location }}                    </p>
+                                <p data-toggle="tooltip" data-placement="top" title="" style="padding-bottom: 25px" class="card_title" data-original-title="توزيع سلال غذائية">{{ $work->Description }}</p>
+                                <p class="card_text">{{ $work->Gender }}</p>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <p class="days_number" data-date="5">تاريخ التسجيل</p>
+                                        <p class="dates">{{ $work->StartDate }} - <br>{{ $work->EndDate }}</p> <!-- End date - Start date -->
+                                    </div>
+                                    <div class="col-4">
+                                        <p class="seats_number">{{$work->Volunteernum }} المقاعد</p>
+                                        <p class="statuse">باقي من الوقت</p>
+                                    </div>
+                                    <div class="col-4 mb-4 ">
+                                        <div data-step="3" data-intro="What are you waiting for! Click here to register for the opportunity">
+
+                                            <a class="join_btn btn_to_a mb-1"  href="MyVolunteerWorks/show/{{{$work->WorkID}}}">عرض الفرصة</a>
+                                            <a class="join_btn btn_to_a mb-1 "  href="MyVolunteerWorks/update/{{{$work->WorkID}}}">تعديل الفرصة</a>
+                                            <a class="join_btn btn_to_a " onclick="return confirm('Are you sure?')" href="{{route('opportunity.delete',$work->WorkID)}}">الغاء الفرصة</a>
+
                                         </div>
+                                    </div>
 
-                                    @endforeach
-
-                                </div>    </div>
-
-                            <!-- cards end -->
-
-                            <!--this one has the real information -->
-                            <div class="center-block text-center">
-
-
-                                {{-- Pagination --}}
-                                <div class="d-flex justify-content-center">
-                                    {!! $works->links() !!}
                                 </div>
-
                             </div>
+                        </div>
 
-                    <!-- Delete Product Model -->
-
-
-
-
-            <!-- TODO: Add  style="display: none" in below div -->
-            <div id="teams" class="col-lg-8 col-md-12 col-sm-12" style="display: none">
-                <button class="collapse_small_btn" type="button" data-toggle="collapse" data-target="#collapseTeams" aria-expanded="false" aria-controls="collapseExample">
-                    Statistics
-                </button>
-                <div class="form toBeCollapse" id="collapseTeams">
-                    <div class="row">
+                    @endforeach
 
 
+            <!-- cards end -->
 
-                    </div>
+            <!--this one has the real information -->
+            <div class="center-block text-center">
+
+
+                {{-- Pagination --}}
+                <div class="d-flex justify-content-center">
+                    {!! $works->links() !!}
                 </div>
+
             </div>
-
-            <!-- TODO: Add  style="display: none" in below div -->
-            <div id="teams" class="col-lg-8 col-md-12 col-sm-12" style="display: none">
-                <button class="collapse_small_btn" type="button" data-toggle="collapse" data-target="#collapseTeams" aria-expanded="false" aria-controls="collapseExample">
-                    Certifcates
-                </button>
-                <div class="form toBeCollapse" id="collapseTeams">
-                    <div class="row">
-
-
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    <input name="__RequestVerificationToken" type="hidden" value="CfDJ8ICO8GpWJxxDrG0exzfUJEibwXQO2yQB9QnoOgP3B8UtEnMnzhL9cEvXWjBcqRuemxgJvguld9csQNbJk28iMhNG5wc3lgl2o9fmPZvwof9oon4kWFnmUcxXL0oRavQXISW9OqGSplt_6dsRp_omJguuESIpRQXU8SWaRAZB5cSXmOks9FqQ0k9uvOgKt8sjEw">
-   </div>
-
-</div>
-
-
 
 
 
@@ -297,42 +210,19 @@
 </footer>
 
 
-        </div>
+</div>
 
 
-
-
-            <script>
-                // Get the modal
-                var modal = document.getElementById('id01');
-
-                // When the user clicks anywhere outside of the modal, close it
-                window.onclick = function(event) {
-                    if (event.target == modal) {
-                        modal.style.display = "none";
-                    }
-                }
-            </script>
-    <script>
-        var deleteLinks = document.querySelectorAll('.delete');
-
-        for (var i = 0; i < deleteLinks.length; i++) {
-            deleteLinks[i].addEventListener('click', function(event) {
-                event.preventDefault();
-
-                var choice = confirm(this.getAttribute('data-confirm'));
-
-                if (choice) {
-                    window.location.href = this.getAttribute('href');
-                }
-            });
-        }
-
-    </script>
-
+    <!-- script -->
 
 
 <grammarly-desktop-integration data-grammarly-shadow-root="true"></grammarly-desktop-integration>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
 
-            </div></div></div></div></div></body></html>
+            </div>
+        </div>
+</div>
+
+
+</body>
+</html>

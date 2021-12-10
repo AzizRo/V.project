@@ -99,46 +99,38 @@
 
 <footer>
     <hr>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-4 col-md-12 col-sm-12">
-                <ul>
-                    <li>
-                        <a class="copy_right" href="/About/Faq">Common Questions</a>
-                    </li>
-                    <li>
-                        <a class="copy_right" href="/About/TutorialGuides">Help</a>
-                    </li>
-                    <li>
-                        <a class="copy_right" href="/About/Agreement">The Ethical Charter For Volunteering</a>
-                    </li>
-                    <li>
-                        <a class="copy_right" target="_blank" href="/files/VolunteerUserManual.pdf">User Guide</a>
-                    </li>
-                    <li>
-                        <a class="copy_right" href="/AbpLocalization/ChangeCulture?cultureName=ar-SA&amp;returnUrl=Home">Arabic</a>
-                    </li>
-                    <li>
-                        <a class="copy_right" href="/AbpLocalization/ChangeCulture?cultureName=en-US&amp;returnUrl=Home">English</a>
-                    </li>
 
-                </ul>
-            </div>
-
-            <div class="col-lg-4 col-md-12 col-sm-12 text-center">
-                <p class="copy_right">All rights reserved. Volunteer work platform  2021  <br> Powered by Tamkeen Technologies</p>
-            </div>
-            <div class="col-lg-4 col-md-12 col-sm-12 text-center">
-            </div>
-        </div>
-    </div>
 </footer>
 
 
 
 
 
-<a   href="{{url("Admin2")}}"  style="    background-color: transparent;border-radius: 6px;color: white;border: none;">عوده</a>
+<!--This message appear when admin approve  opportunity  -->
+@if (session('approval') )
+    <div class="container ">
+        <div class="row container justify-content-center">
+            <div class="col-lg-4 col-md-4 col-sm-4">
+                <div class="alert alert-success  text-center">
+                    {{ session('approval') }}
+                </div>
+            </div>
+        </div>
+    </div>
+@endif
+
+<!--This message appear when admin decline  opportunity  -->
+@if (session('decline') )
+    <div class="container ">
+        <div class="row container justify-content-center">
+            <div class="col-lg-4 col-md-4 col-sm-4">
+                <div class="alert alert-success  text-center">
+                    {{ session('decline') }}
+                </div>
+            </div>
+        </div>
+    </div>
+@endif
 <!-- cards start -->
 
 <div class="cards container" style="margin-bottom: 50px;">
@@ -173,11 +165,12 @@
                         <div class="col-4">
                             <div data-step="3" data-intro="What are you waiting for! Click here to register for the opportunity">
 
-                                <a class="join_btn btn_to_a" href="admin/show/{{{$work->WorkID}}}">عرض الفرصة</a>
+                                <a class="join_btn btn_to_a mb-1" href="admin/show/{{{$work->WorkID}}}">عرض الفرصة</a>
+                            </div>
                                 <form method="post" action="{{route('admin.decline',$work->WorkID)}}">
                                     @csrf
                                     <input type="hidden" name="businessID" value="$work->WorkID"/>
-                                    <button class="join_btn btn_to_a" onclick="return confirm('Are you sure?')" type="submit">
+                                    <button class="join_btn btn_to_a" onclick="return confirm('هل انت متأكد؟')" type="submit">
                                         الغاء الفرصة
                                     </button>
                                 </form>
@@ -185,7 +178,7 @@
                                 <form method="post" action="{{route('admin.approve',$work->WorkID)}}">
                                     @csrf
                                     <input type="hidden" name="businessID" value="$work->WorkID"/>
-                                    <button class="join_btn btn_to_a"  onclick="return confirm('Are you sure?')" type="submit">
+                                    <button class="join_btn btn_to_a"  onclick="return confirm('هل انت متأكد؟')" type="submit">
                                         الموافقة
                                     </button>
                                 </form>
@@ -194,7 +187,7 @@
                             </div>
                         </div>
 
-                    </div>
+
                 </div>
             </div>
 

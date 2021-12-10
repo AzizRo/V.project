@@ -10,22 +10,22 @@
     <link rel="stylesheet" href="{{asset('css/Styling.css')}}">
 </head>
 <body>
-<!-- navbark : a must use class to create navbar -->
-<!-- navbar-expand-lg  : a class for expanding the navbar based on size if it's for example navbar-exapnd-sm the navbar will be exapend intll it reach small screen-->
-<!-- bg-dark :  it change the background color of the navbar to dark-->
-<!-- navbark dark : change the text to white-->
-<!-- navbar-brand : it gives a brand or logo to the navbar-->
-<!-- navbar-light : it changes the color of the text in the navbar-->
-<!-- collapse (alone) : hides content-->
-<!-- .collapse.navbar-collapse : for grouping and hiding navbar contents by a parent breakpoint.-->
-<!-- navbar-nav : A navigation bar is a navigation header that is placed at the top of the page:-->
-<!-- nav-item : -->
-<!-- nav-link :  change the format ofthe link to look good at the navbar-->
-<!-- navbar-toggler : opens the windows when its clicked-->
-<!-- ms-auto: margin starts auto-->
-<!-- ms-auto: margin starts auto-->
-<!-- ms-auto: margin starts auto-->
-<!-- ms-auto: margin starts auto-->
+    <!-- navbark : a must use class to create navbar -->
+    <!-- navbar-expand-lg  : a class for expanding the navbar based on size if it's for example navbar-exapnd-sm the navbar will be exapend intll it reach small screen-->
+    <!-- bg-dark :  it change the background color of the navbar to dark-->
+    <!-- navbark dark : change the text to white-->
+    <!-- navbar-brand : it gives a brand or logo to the navbar-->
+    <!-- navbar-light : it changes the color of the text in the navbar-->
+    <!-- collapse (alone) : hides content-->
+    <!-- .collapse.navbar-collapse : for grouping and hiding navbar contents by a parent breakpoint.-->
+    <!-- navbar-nav : A navigation bar is a navigation header that is placed at the top of the page:-->
+    <!-- nav-item : -->
+    <!-- nav-link :  change the format ofthe link to look good at the navbar-->
+    <!-- navbar-toggler : opens the windows when its clicked-->
+    <!-- ms-auto: margin starts auto-->
+    <!-- ms-auto: margin starts auto-->
+    <!-- ms-auto: margin starts auto-->
+    <!-- ms-auto: margin starts auto-->
 
 <!-- Navbar-->
 <nav class="navbar navbar-expand-lg  navbar-dark py-3 fixed-top" style="background-color: #39c095;">
@@ -52,7 +52,7 @@
                         </div>
                     </li>
                 @endauth
-                <!-- Nav-item3 -->
+
 
                 <!-- Nav-item2 -->
 
@@ -77,19 +77,20 @@
 
                             </form>
 
-                @endauth
+                            @endauth
 
 
-                @guest()
-                    <li class="nav-item ">
+                              @guest()
+                       <!-- Nav-item3 -->
+                 <li class="nav-item ">
                         <a href="{{route('Register')}}" class="nav-link" role="button" aria-haspopup="true" aria-expanded="false" >تسجيل</a>
-                    </li>
+                  </li>
 
                     <!-- Nav-item4 -->
                     <li class="nav-item ">
                         <a href="{{route('Login')}}" class="nav-link" role="button" aria-haspopup="true" aria-expanded="false" >دخول</a>
                     </li>
-                @endguest
+                           @endguest
 
 
             </ul>

@@ -127,6 +127,19 @@
             </div>
     </nav>
 </div>
+
+<!--This message appear when  user update his account  -->
+@if (session('updateU') )
+    <div class="container ">
+        <div class="row container justify-content-center">
+            <div class="col-lg-4 col-md-4 col-sm-4">
+                <div class="alert alert-success  text-center">
+                    {{ session('updateU') }}
+                </div>
+            </div>
+        </div>
+    </div>
+@endif
 <div class="">
     <div id="apprun-app">
 
@@ -141,21 +154,6 @@
             <div class="text-center">
 
             </div>
-            @if (session('message'))
-                <div class="alert alert-danger">
-                    {{ session('message') }}
-                </div>
-            @endif
-            @if (session('success'))
-                <div class="alert alert-success">
-                    {{ session('success') }}
-                </div>
-            @endif
-            @if (session('error'))
-                <div class="alert alert-danger">
-                    {{ session('error') }}
-                </div>
-            @endif
 
 
             <form method= "POST" action ="{{route("profile/update")}}">
@@ -170,6 +168,10 @@
                             <hr>
                             @role('volunteer provider')
                             <a href="{{url("MyVolunteerWorks")}}"><button id="healthBtn" type="button" onclick="showOption(this.id)" class="option_text">الفرص المنشئة الخاصة بي</button></a>
+                            @endrole
+                            <hr>
+                            @role('certificate')
+                            <a href="{{url("ApproveMyOpportunity")}}"><button id="healthBtn" type="button" onclick="showOption(this.id)" class="option_text">الموافقة على الفرص المنشئة الخاصة بي </button></a>
                             @endrole
                             <hr>
                             @role('volunteer')
@@ -238,7 +240,7 @@
                                     <hr>
                                 </div>
                                 <div class="col-lg-12 col-md-12 col-sm-12">
-                                    <a href="/Account/ResetPassword" class="reset_password btn_to_a">تحديت كلمة المرور</a>
+                                    <a href="{{route('forget.password.get')}}" class="reset_password btn_to_a">تحديت كلمة المرور</a>
                                 </div>
                                 <div class="col-lg-12 col-md-12 col-sm-12">
                                     <hr>
@@ -246,7 +248,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-lg-4 col-md-12 col-sm-12">
-                                    <button type="submit" style="background: #036A3B"  class="save_btn">Save</button>
+                                    <button type="submit" style="background: #036A3B"  class="save_btn">تحديث</button>
                                 </div>
                             </div>
                         </div>
