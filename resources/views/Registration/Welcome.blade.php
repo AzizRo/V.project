@@ -330,6 +330,8 @@
 <footer class="p-5 text-white text-center position-relative" style="background-color:#4a5d5c ;">
     <div class="container">
         <p class="lead">حقوق النشر © 2021 جامعة نجران</p>
+        <p class="copy_right" href="/About/Faq">تواصل معنا</p>
+        <p class="copy_right" dir="ltr" target="_blank" href="/files/VolunteerUserManual.pdf">438100206@nu.edu.sa</p>
         <a href="#" class="position-absolute bottom-0 end-0 p-5">
             <i class="bi bi-arrow-up-circle h1" style="color: #39c095;"></i>
         </a>
