@@ -87,13 +87,29 @@
     </nav>
 </div>
 
-
-
-
-
-
+<!-- footer -->
 <footer>
+    <hr>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-12 col-sm-12">
+                <ul>
+
+
+                </ul>
+            </div>
+
+            <div class="col-lg-4 col-md-12 col-sm-12 text-center">
+                <p class="copy_right">جميع الحقوق محفوظة لجامعة منصة العمل التطوعي بجامعة نجران </p>
+                <p class="copy_right" href="/About/Faq">تواصل معنا</p>
+                <p class="copy_right" dir="ltr" target="_blank" href="/files/VolunteerUserManual.pdf">438100206@nu.edu.sa</p>
+            </div>
+            <div class="col-lg-4 col-md-12 col-sm-12 text-center">
+            </div>
+        </div>
+    </div>
 </footer>
+
 <!--  Error message if he signed in the same opportunity-->
 @if (session('error'))
     <div class="container ">
